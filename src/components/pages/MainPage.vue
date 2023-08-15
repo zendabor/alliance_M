@@ -1,6 +1,29 @@
 <script>
+import jeep from '@img/jeep.png';
+import slide2 from '@img/slide-2.png';
+import slide3 from '@img/slide-3.png';
+import benefit1 from '@img/benefit_1.svg';
+import benefit2 from '@img/benefit_2.svg';
+import benefit3 from '@img/benefit_3.svg';
+import benefit4 from '@img/benefit_4.svg';
+import filter from '@img/icons/filter-filter.svg';
+
 export default {
-  name: "MainPage"
+  name: "MainPage",
+  data() {
+    return {
+      images: {
+        jeep: jeep,
+        slide2: slide2,
+        slide3: slide3,
+        benefit1: benefit1,
+        benefit2: benefit2,
+        benefit3: benefit3,
+        benefit4: benefit4,
+        filter: filter,
+      }
+    }
+  }
 }
 </script>
 
@@ -19,8 +42,8 @@ export default {
                 <div class="slide">
                   <div class="car-img_block">
                     <picture>
-                      <source srcset="{{ url('/img/jeep.webp') }}" type="image/webp">
-                      <img src="{{ url('/img/jeep.webp') }}" alt="Jeep" class="car-img">
+                      <source :srcset="images.jeep" type="image/webp">
+                      <img :src="images.jeep" alt="Jeep" class="car-img">
                     </picture>
                   </div>
                   <div class="slide_container">
@@ -39,7 +62,9 @@ export default {
             </div>
             <div class="splide__slide">
               <div class="slide_block">
-                <div class="slide-2" style="background: url({{ url('/img/slide-2.png') }}) no-repeat center;">
+<!--                <div class="slide-2" style="background: url({{ url('/img/slide-2.png') }}) no-repeat center;">-->
+<!--                <div class="slide-2" :style="{backgroundImage: `url(${images.slide2}) 'no-repeat' 'center;'`}">-->
+                <div class="slide-2" :style="{backgroundImage: `url(${images.slide2})`}">
                   <div class="slide-2_container">
                     <div class="slide-2_texts full575">
                       <h1>акция</h1>
@@ -59,7 +84,9 @@ export default {
             </div>
             <div class="splide__slide">
               <div class="slide_block">
-                <div class="slide-3" style="background: url({{ url('/img/slide-3.png') }}) no-repeat center;">
+<!--                <div class="slide-3" style="background: url({{ url('/img/slide-3.png') }}) no-repeat center;">-->
+<!--                <div class="slide-3" :style="{backgroundImage: `url(${images.slide3}) 'no-repeat' 'center;'`}">-->
+                  <div class="slide-3" :style="{backgroundImage: `url(${images.slide3})`}">
                   <div class="slide-3_container">
                     <div class="slide-3_texts">
                       <h1>акция</h1>
@@ -84,19 +111,19 @@ export default {
           <ul class="benefits_body">
             <li class="benefits_item">
               <span class="benefits_title">Автокредит</span>
-<!--              <img src={{ url('/img/benefit_1.svg') }} class="benefits_figure-1">-->
+              <img :src="images.benefit1" class="benefits_figure-1">
             </li>
             <li class="benefits_item">
               <span class="benefits_title">пРОДАЖА</span>
-<!--              <img src={{ url('/img/benefit_2.svg') }} class="benefits_figure-2">-->
+              <img :src="images.benefit2" class="benefits_figure-2">
             </li>
             <li class="benefits_item">
               <span class="benefits_title">КОМИССИЯ</span>
-<!--              <img src={{ url('/img/benefit_3.svg') }} class="benefits_figure-3">-->
+              <img :src="images.benefit3" class="benefits_figure-3">
             </li>
             <li class="benefits_item">
               <span class="benefits_title">трейд-ин</span>
-<!--              <img src={{ url('/img/benefit_4.svg') }} class="benefits_figure-4">-->
+              <img :src="images.benefit4" class="benefits_figure-4">
             </li>
           </ul>
         </div>
@@ -108,9 +135,9 @@ export default {
             <div id="select-filter"></div>
           </div>
           <div class="flex items-center">
-            <a href="{{ route('main') }}" class="popup_btn filter-show">
-<!--              <img src={{ url('/img/icons/filter-filter.svg') }} alt="Filter">-->
-            </a>
+            <router-link to="/" class="popup_btn filter-show">
+              <img :src="images.filter" alt="Filter">
+            </router-link>
           </div>
         </div>
         <div class="cars_container">
@@ -120,9 +147,9 @@ export default {
 
         </div>
         <div class="watch">
-          <a href="{{ route('main') }}" class="watch-link" target="_blank" id="show-more">
+          <router-link to="/" class="watch-link" target="_blank" id="show-more">
             <button type="button" class="btn-watch">Посмотреть еще</button>
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -132,7 +159,7 @@ export default {
             <h1>хочешь</h1>
             <p>оформить автокредит легко и просто?</p>
           </div>
-          <form action="{{ route('main') }}" class="form_action">
+          <form class="form_action">
             <input required type="text" name="name" id="name" class="inputHome-1" placeholder="Имя">
             <input required type="tel" name="tel" id="tel" class="inputHome-2" placeholder="+7 (123) 456-78-90">
             <input type="submit" class="submitRequiredFormHome" name="submitForm" id="submitForm" value="Отправить заявку">
@@ -175,11 +202,11 @@ export default {
                     </svg>
                   </a>
                 </div>
-                <form action="{{ route('main') }}" class="submit_form" id="submit">
+                <form class="submit_form" id="submit">
                   <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
                   <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
                   <a href="#win" class="btn-link popup-link w-100">
-                    <button type="submit" form="/" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
+                    <button type="submit" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
                   </a>
                 </form>
                 <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
@@ -190,7 +217,7 @@ export default {
       </div>
 
       <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
-        <button type="submit" form="/" class="btn zayavka-btn full575">Оставить заявку</button>
+        <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
       </a>
 
     </div>

@@ -1,6 +1,28 @@
 <script>
+import geo from '@img/icons/geo.svg';
+import mail from '@img/icons/mail.svg';
+import salon1 from '@img/salon/salon-1.png';
+import salon2 from '@img/salon/salon-2.png';
+import salon3 from '@img/salon/salon-3.png';
+import salon4 from '@img/salon/salon-4.png';
+import salon5 from '@img/salon/salon-5.png';
+import salon6 from '@img/salon/salon-6.png';
+
 export default {
-name: "ContactPage"
+  data() {
+    return {
+      images: {
+        geo: geo,
+        mail: mail,
+        salon1: salon1,
+        salon2: salon2,
+        salon3: salon3,
+        salon4: salon4,
+        salon5: salon5,
+        salon6: salon6,
+      }
+    }
+  }
 }
 </script>
 
@@ -14,15 +36,15 @@ name: "ContactPage"
               <h1 class="footer_title map-contact_title">Контакты</h1>
               <ul>
                 <li>
-                  <img src="{{ url('/img/icons/geo.svg') }}" alt="Geo">
+                  <img :src="images.geo" alt="Geo">
                   <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
                 </li>
                 <li>
-                  <img src="{{ url('/img/icons/geo.svg') }}" alt="Geo">
+                  <img :src="images.geo" alt="Geo">
                   <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
                 </li>
                 <li>
-                  <img src="{{ url('/img/icons/mail.svg') }}" alt="Mail">
+                  <img :src="images.mail" alt="Mail">
                   <p><a href="mailto:alliance.motors@bk.ru" class="m-0">alliance.motors@bk.ru</a></p>
                 </li>
               </ul>
@@ -53,12 +75,12 @@ name: "ContactPage"
       </div>
       <div class="gallery">
         <ul class="gallery_container">
-          <picture><source srcset="{{ url('/img/salon/salon-1.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-1.png') }}" alt="salon-1" class="salon-1"></picture>
-          <picture><source srcset="{{ url('/img/salon/salon-2.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-2.png') }}" alt="salon-2" class="salon-2"></picture>
-          <picture><source srcset="{{ url('/img/salon/salon-3.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-3.png') }}" alt="salon-3" class="salon-3"></picture>
-          <picture><source srcset="{{ url('/img/salon/salon-4.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-4.png') }}" alt="salon-4" class="salon-4"></picture>
-          <picture><source srcset="{{ url('/img/salon/salon-5.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-5.png') }}" alt="salon-5" class="salon-5"></picture>
-          <picture><source srcset="{{ url('/img/salon/salon-6.webp') }}" type="image/webp"><img src="{{ url('/img/salon/salon-6.png') }}" alt="salon-6" class="salon-6"></picture>
+          <picture><source :srcset="images.salon1" type="image/webp"><img :src="images.salon1" alt="salon-1" class="salon-1"></picture>
+          <picture><source :srcset="images.salon2" type="image/webp"><img :src="images.salon2" alt="salon-2" class="salon-2"></picture>
+          <picture><source :srcset="images.salon3" type="image/webp"><img :src="images.salon3" alt="salon-3" class="salon-3"></picture>
+          <picture><source :srcset="images.salon4" type="image/webp"><img :src="images.salon4" alt="salon-4" class="salon-4"></picture>
+          <picture><source :srcset="images.salon5" type="image/webp"><img :src="images.salon5" alt="salon-5" class="salon-5"></picture>
+          <picture><source :srcset="images.salon6" type="image/webp"><img :src="images.salon6" alt="salon-6" class="salon-6"></picture>
         </ul>
       </div>
     </div>
@@ -98,11 +120,11 @@ name: "ContactPage"
                 </svg>
               </a>
             </div>
-            <form action="{{ route('main') }}" class="submit_form" id="submit">
+            <form class="submit_form" id="submit">
               <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
               <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
               <a href="#win" class="btn-link popup-link w-100">
-                <button type="submit" form="/" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
+                <button type="submit" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
               </a>
             </form>
             <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
@@ -113,7 +135,7 @@ name: "ContactPage"
   </div>
 
   <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
-    <button type="submit" form="/" class="btn zayavka-btn full575">Оставить заявку</button>
+    <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
   </a>
 </template>
 

@@ -3,9 +3,9 @@
 </script>
 
 <template>
-  <Header/>
+  <MyHeader/>
   <RouterView />
-  <Footer/>
+  <MyFooter/>
 </template>
 
 <style>

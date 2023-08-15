@@ -1,6 +1,30 @@
 <script>
+import doc from '@img/icons/doc.svg';
+import dist from '@img/icons/dist.svg';
+import kacko from '@img/icons/kacko.svg';
+import dnr_lnr from '@img/icons/dnr-lnr.svg';
+import valuta from '@img/icons/valuta.svg';
+import without_comissia from '@img/icons/without-comissia.svg';
+import russia from '@img/icons/russia.svg';
+import filter from '@img/icons/filter-filter.svg';
+import close from '@img/close.svg';
+
 export default {
-  name: "CreditPage"
+  data() {
+    return {
+      images: {
+        doc: doc,
+        dist: dist,
+        kacko: kacko,
+        dnr_lnr: dnr_lnr,
+        valuta: valuta,
+        without_comissia: without_comissia,
+        russia: russia,
+        filter: filter,
+        close: close,
+      }
+    }
+  }
 }
 </script>
 
@@ -10,7 +34,7 @@ export default {
       <div class="form credit">
         <div class="form_container credit_container">
           <div class="credit_title">кредит<br /><span>ОТ 7%</span></div>
-          <form action="{{ route('main') }}" class="form_action">
+          <form class="form_action">
             <input required type="text" name="name" class="inputCredit-1" id="name" placeholder="Имя">
             <input required type="tel" name="tel" class="inputCredit-2" id="tel" placeholder="+7 (123) 456-78-90">
             <input type="submit" name="submitForm" id="submitForm" class="submitRequiredFormCredit" value="Отправить заявку">
@@ -20,33 +44,33 @@ export default {
       <div class="credit-grid">
         <ul class="row-1 ">
           <li>
-            <img src="{{ url('/img/icons/doc.svg') }}" alt="Document">
+            <img :src="images.doc" alt="Document">
             <p>Оформление<br>по 2 документам</p>
           </li>
           <li>
-            <img src="{{ url('/img/icons/dist.svg') }}" alt="Dist">
+            <img :src="images.dist" alt="Dist">
             <p>Дистанционная<br>подача</p>
           </li>
           <li>
-            <img src="{{ url('/img/icons/kacko.svg') }}" alt="KASKO">
+            <img :src="images.kacko" alt="KASKO">
             <p>Без оформления<br>КАСКО</p>
           </li>
           <li>
-            <img src="{{ url('/img/icons/dnr-lnr.svg') }}" alt="DNR & LNR">
+            <img :src="images.dnr_lnr" alt="DNR & LNR">
             <p>По паспорту<br>ДНР и ЛНР</p>
           </li>
         </ul>
         <ul class="row-2 ">
           <li>
-            <img src="{{ url('/img/icons/valuta.svg') }}" alt="Rubl">
+            <img :src="images.valuta" alt="Rubl">
             <p>Без первоначального взноса</p>
           </li>
           <li>
-            <img src="{{ url('/img/icons/without-comissia.svg') }}" alt="Без комиссий">
+            <img :src="images.without_comissia" alt="Без комиссий">
             <p>Досрочное погашение<br>без комиссий и штрафов</p>
           </li>
           <li>
-            <img src="{{ url('/img/icons/russia.svg') }}" alt="Russia">
+            <img :src="images.russia" alt="Russia">
             <p>Все регионы РФ<br>(в т.ч. Кавказ и Крым)</p>
           </li>
         </ul>
@@ -57,18 +81,14 @@ export default {
             <div id="select-filter"></div>
           </div>
           <div class="flex items-center">
-            <a href="{{ route('main') }}" class="popup_btn filter-show">
-              <img src="{{ url('/img/icons/filter-filter.svg') }}" alt="Filter">
-            </a>
+            <router-link to="/" class="popup_btn filter-show">
+              <img :src="images.filter" alt="Filter">
+            </router-link>
           </div>
         </div>
         <div class="cars_container">
           <div class="cars_buy car homeCars">
-            <ul class="car_list">
-              @foreach($cars as $car)
-              @include('part.car_info', ['car' => $car])
-              @endforeach
-            </ul>
+            <ul class="car_list"></ul>
           </div>
 
           <div class="filter_body">
@@ -255,7 +275,7 @@ export default {
       <div class="popup" id="popup">
         <div class="popup__body">
           <a href="#header" class="popup__close close-popup">
-            <img src="{{ url('/img/close.svg') }}">
+            <img :src="images.close">
           </a>
           <div class="popup__content"></div>
         </div>
@@ -297,11 +317,11 @@ export default {
                 </svg>
               </a>
             </div>
-            <form action="{{ route('main') }}" class="submit_form" id="submit">
+            <form class="submit_form" id="submit">
               <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
               <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
               <a href="#win" class="btn-link popup-link w-100">
-                <button type="submit" form="/" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
+                <button type="submit"  class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
               </a>
             </form>
             <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
@@ -312,7 +332,7 @@ export default {
   </div>
 
   <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
-    <button type="submit" form="/" class="btn zayavka-btn full575">Оставить заявку</button>
+    <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
   </a>
 </template>
 

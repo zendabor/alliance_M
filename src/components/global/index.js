@@ -1,11 +1,11 @@
 import Navbar from './Navbar.vue';
-import Header from './Header.vue';
-import Footer from './Footer.vue';
+import MyHeader from './MyHeader.vue';
+import MyFooter from './MyFooter.vue';
 
 const components = [
     {name: 'Navbar', component: Navbar},
-    {name: 'Header', component: Header},
-    {name: 'Footer', component: Footer},
+    {name: 'MyHeader', component: MyHeader},
+    {name: 'MyFooter', component: MyFooter},
 ];
 
 export default {

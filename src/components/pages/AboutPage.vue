@@ -1,6 +1,20 @@
 <script>
+import about from '@img/about.png';
+import mail from '@img/icons/mail.svg';
+import phone from '@img/icons/phone.svg';
+import card from '@img/card-with-red-envelope 1.png';
+
 export default {
-name: "AboutPage"
+  data() {
+    return {
+      images: {
+        about: about,
+        mail: mail,
+        phone: phone,
+        card: card,
+      }
+    }
+  }
 }
 </script>
 
@@ -8,7 +22,7 @@ name: "AboutPage"
   <main class="main">
     <div class="wrapper">
       <section class="pagination-pages about-pagination">
-        <a href="{{ route('main') }}">Главная</a>
+        <router-link to="/">Главная</router-link>
         <div class="pagination-slesh">/</div>
         <div class="currentPage">О компании</div>
       </section>
@@ -19,7 +33,12 @@ name: "AboutPage"
         </section>
         <section class="about_grid">
           <ul class="about_grid-1">
-            <li><picture><source srcset="{{ url('/img/about.webp') }}" type="image/webp"><img src="{{ url('/img/about.png') }}" alt="About" /></picture></li>
+            <li>
+              <picture>
+                <source :srcset="images.about" type="image/webp">
+                <img :src="images.about" alt="About" />
+              </picture>
+            </li>
             <li>
               <p>С начала своей деятельности компания развивала два направления: продажи и обслуживание новых автомобилей LADA и направление продажи автомобилей с пробегом. <br /><br />С 2017 г. Компания переориентировала все силы на продажи автомобилей с пробегом.</p>
             </li>
@@ -76,11 +95,11 @@ name: "AboutPage"
             <h3>Отдел продаж</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img src="{{ url('/img/icons/phone.svg') }}" />
+                <img :src="images.phone" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img src="{{ url('/img/icons/mail.svg') }}" alt="" />
+                <img :src="images.mail" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -93,11 +112,11 @@ name: "AboutPage"
             <h3 class="wrap-text">Отдел кредитования <br class="show767">и страхования</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img src="{{ url('/img/icons/phone.svg') }}" />
+                <img :src="images.phone" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img src="{{ url('/img/icons/mail.svg') }}" alt="" />
+                <img :src="images.mail" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -113,7 +132,7 @@ name: "AboutPage"
               <button type="button" class="primary-btn">Письмо директору</button>
             </div>
             <div class="writing_img">
-              <img src="{{ url('/img/card-with-red-envelope 1.png') }}">
+              <img :src="images.card">
             </div>
           </div>
         </section>
@@ -162,11 +181,11 @@ name: "AboutPage"
                 </svg>
               </a>
             </div>
-            <form action="{{ route('main') }}" class="submit_form" id="submit">
+            <form class="submit_form" id="submit">
               <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
               <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
               <a href="#win" class="btn-link popup-link w-100">
-                <button type="submit" form="/" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
+                <button type="submit" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
               </a>
             </form>
             <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
@@ -177,7 +196,7 @@ name: "AboutPage"
   </div>
 
   <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
-    <button type="submit" form="/" class="btn zayavka-btn full575">Оставить заявку</button>
+    <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
   </a>
 </template>
 

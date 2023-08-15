@@ -1,15 +1,29 @@
 <script>
+import filter from '@img/icons/filter-filter.svg';
+import leftArrow from '@img/icons/arrows-directions-left.svg';
+import rightArrow from '@img/icons/arrows-directions-right.svg';
+import close from '@img/close.svg';
+
 export default {
-name: "CatalogPage"
+  data() {
+    return {
+      images: {
+        filter: filter,
+        leftArrow: leftArrow,
+        rightArrow: rightArrow,
+        close: close,
+      }
+    }
+  }
+
 }
 </script>
 
 <template>
-  CATALOG
   <main class="main">
     <div class="wrapper">
       <div class="pagination-pages">
-        <a href="{{ route('main') }}">Главная</a>
+        <router-link to="/">Главная</router-link>
         <div class="pagination-slesh">/</div>
         <div class="currentPage">Каталог</div>
       </div>
@@ -19,17 +33,11 @@ name: "CatalogPage"
           <div class="flex items-center">
             <div id="select-catalog"></div>
           </div>
-          <a href="#popup" class="popup_btn popup-link">
-            <img src="{{ url('/img/icons/filter-filter.svg') }}" alt="Filter">
-          </a>
+          <a href="#popup" class="popup_btn popup-link"><img :src="images.filter" alt="Filter"></a>
         </div>
         <div class="cars_container">
           <div class="cars_buy car catalogCars">
-            <ul class="car_list">
-              @foreach($cars as $car)
-              @include('part.car_info', ['car' => $car])
-              @endforeach
-            </ul>
+            <ul class="car_list"></ul>
           </div>
 
           <div class="filter_body">
@@ -216,7 +224,7 @@ name: "CatalogPage"
 
       <div class="pagination">
         <a href="./catalog.html" class="pagination-prev">
-          <img src="{{ url('/img/icons/arrows-directions-left.svg') }}" alt="Left">
+          <img :src="images.leftArrow" alt="Left">
         </a>
         <a href="./catalog.html" class="pagination-link pagination-active">1</a>
         <a href="./catalog.html" class="pagination-link">2</a>
@@ -226,7 +234,7 @@ name: "CatalogPage"
         <a href="./catalog.html" class="pagination-link">16</a>
         <a href="./catalog.html" class="pagination-link">17</a>
         <a href="./catalog.html" class="pagination-next">
-          <img src="{{ url('/img/icons/arrows-directions-right.svg') }}" alt="Right">
+          <img :src="images.rightArrow" alt="Right">
         </a>
       </div>
       <div class="form form-catalog">
@@ -235,7 +243,7 @@ name: "CatalogPage"
             <h1>хочешь</h1>
             <p>оформить автокредит легко и просто?</p>
           </div>
-          <form action="{{ route('main') }}" class="form_action">
+          <form class="form_action">
             <input required type="text" name="name" id="name" placeholder="Имя"/>
             <input required type="tel" name="tel" id="tel" placeholder="+7 (123) 456-78-90"/>
             <input type="submit" name="submitForm" id="submitForm" value="Отправить заявку"/>
@@ -246,7 +254,7 @@ name: "CatalogPage"
     <div class="popup" id="popup">
       <div class="popup__body">
         <a href="#header" class="popup__close close-popup">
-<!--          <img src={{ url('/img/close.svg') }}>-->
+          <img :src="images.close">
         </a>
         <div class="popup__content"></div>
       </div>
@@ -288,11 +296,11 @@ name: "CatalogPage"
                 </svg>
               </a>
             </div>
-            <form action="{{ route('main') }}" class="submit_form" id="submit">
+            <form class="submit_form" id="submit">
               <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
               <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
               <a href="#win" class="btn-link popup-link w-100">
-                <button type="submit" form="/" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
+                <button type="submit" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
               </a>
             </form>
             <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
@@ -303,7 +311,7 @@ name: "CatalogPage"
   </div>
 
   <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
-    <button type="submit" form="/" class="btn zayavka-btn full575">Оставить заявку</button>
+    <button type="submit"  class="btn zayavka-btn full575">Оставить заявку</button>
   </a>
 </template>
 
