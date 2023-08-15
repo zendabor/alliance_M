@@ -1240,7 +1240,7 @@ body {
       background: #B40D16;
 
       &::before {
-        background: url(img/icons/check.svg) no-repeat;
+        background: url('@img/icons/check.svg') no-repeat;
         background-size: cover;
         width: 8px;
         height: 8px;

@@ -4,6 +4,7 @@ import CatalogPage from "../components/pages/CatalogPage.vue";
 import CreditPage from "../components/pages/CreditPage.vue";
 import AboutPage from "../components/pages/AboutPage.vue";
 import ContactPage from "../components/pages/ContactPage.vue";
+import DetailPage from "../components/pages/DetailPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/contacts',
       name: 'contacts',
       component: ContactPage
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: DetailPage
     }
   ]
 })
