@@ -67,7 +67,7 @@ export default {
             </ul>
           </div>
 
-          <FilterCars/>
+          <FilterCars />
 
         </div>
         <div class="watch">

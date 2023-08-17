@@ -2,6 +2,8 @@
 import axios from "axios";
 
 export default {
+  components: {},
+
   // props: {
   //   id: Number,
   // },
@@ -31,11 +33,7 @@ export default {
 <template>
   <main class="main">
     <div class="wrapper">
-      <div class="pagination-pages">
-        <router-link :to="'/' ">Главная</router-link>
-        <div class="pagination-slesh">/</div>
-        <div class="currentPage">Каталог</div>
-      </div>
+      <MyBreadcrumbs :page="Каталог" />
       <div class="detail-product">
         <div class="detail-product_container">
           <div class="title-block">
@@ -47,7 +45,7 @@ export default {
                   <div class="title-right el-2">АКЦИЯ</div>
                 </div>
               </h1>
-              <p class="detail-product_subtitle">{{ car.year }} <span>{{ car.generation.name }}</span></p>
+<!--              <p class="detail-product_subtitle">{{ car.year }} <span>{{ car.generation.name }}</span></p>-->
             </div>
             <div class="zayavka-block">
               <a href="#submit-application" class="btn-link popup-link full575">

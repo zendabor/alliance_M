@@ -1,3 +1,116 @@
+<script>
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      brandListBlock: false,
+      brands: [],
+      models: [],
+      selected: {
+        brand: String,
+        divBrand: 'Выберите марку',
+        divBrandList: [],
+        divModelList: [],
+      }
+    }
+  },
+  computed: {
+    hasNew() {
+      return false;
+    },
+  },
+  methods: {
+    clear() {
+      this.selected.divBrandList = [];
+      this.models = [];
+
+      console.log('clear filter')
+    },
+    onlyNew() {
+      console.log('only new')
+    },
+    showBrandList() {
+      console.log('showBrandList')
+      this.brandListBlock = !this.brandListBlock;
+    },
+    async getBrandList() {
+      try {
+        const response = await axios.get('http://91.222.238.19:900/api/brands');
+        const { data: list } = response;
+        this.brands = list;
+        console.log(list);
+      } catch (e) {
+
+      }
+    },
+    async getModelList() {
+      try {
+        const params = {brands: this.selected.divBrandList.join(",")};
+        const response = await axios.get('http://91.222.238.19:900/api/models', {params});
+        const { data: list } = response;
+        this.models = list;
+      } catch (e) {
+
+      }
+    },
+    selectBrand(id) {
+      if (id === 0) {
+        let result = [];
+        Object.entries(this.brands).forEach(([key, value]) => {
+          if (value.id !== 0) result.push(value.id);
+        });
+
+        if (this.selected.divBrandList.length && this.selected.divBrandList.length === result.length) {
+          this.selected.divBrandList = [];
+        } else {
+          this.selected.divBrandList = result;
+        }
+      } else {
+        if (this.selected.divBrandList.indexOf(id) !== -1) {
+          this.selected.divBrandList = this.selected.divBrandList.filter(brandId => brandId !== id);
+        } else {
+          this.selected.divBrandList.push(id);
+        }
+        console.log(this.selected.divBrandList)
+      }
+
+      this.selected.divBrand = this.selected.divBrandList.length ? `Выбрано ${this.selected.divBrandList.length}` : `Выберите марку`;
+      if (this.selected.divBrandList.length) {
+        this.getModelList();
+      }
+    },
+    selectModel(id) {
+      let selectedList = this.selected.divModelList;
+
+      if (id === 0) {
+        let result = [];
+        Object.entries(this.models).forEach(([key, value]) => {
+          if (value.id !== 0) result.push(value.id);
+        });
+
+        if (selectedList.length && selectedList.length === result.length) {
+          selectedList = [];
+        } else {
+          selectedList = result;
+        }
+      } else {
+        if (selectedList.indexOf(id) !== -1) {
+          this.selected.divModelList = selectedList.filter(modelId => modelId !== id);
+        } else {
+          this.selected.divModelList.push(id);
+        }
+      }
+
+      this.selected.divModelList = selectedList;
+    },
+  },
+  mounted() {
+    this.getBrandList();
+  }
+}
+</script>
+
 <template>
   <div class="filter_body">
     <div class="cars_filter filter">
@@ -5,7 +118,8 @@
         <div>
           <div class="flex justify-between items-center">
             <h1 class="filter_title">Фильтр</h1>
-            <button type="button" class="btn-clear">
+            <button type="button" class="btn-clear" @click="clear">
+<!--              <img src="../assets/svg/basket.svg" alt="new-model">-->
               <svg
                   width="16"
                   height="17"
@@ -23,8 +137,15 @@
               Очистить
             </button>
           </div>
-          <div class="flex items-center">
-            <button type="button" class="checkbox _active"></button>
+          <div
+              class="flex items-center"
+              v-if="hasNew"
+          >
+            <button
+                type="button"
+                class="checkbox _active"
+                @click="onlyNew"
+            ></button>
             <span class="filter_text">Новые модели</span>
           </div>
         </div>
@@ -32,76 +153,106 @@
           <h1 class="filter_title">Марка</h1>
           <div class="filterSelect">
             <div class="filterSelect_container">
-              <div class="filterSelect_select">
-                <div class="filterSelect_value"></div>
-                <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M1.24603 5.21967C1.57407 4.92678 2.10593 4.92678 2.43397 5.21967L8 10.1893L13.566 5.21967C13.8941 4.92678 14.4259 4.92678 14.754 5.21967C15.082 5.51256 15.082 5.98744 14.754 6.28033L8.59397 11.7803C8.26593 12.0732 7.73407 12.0732 7.40603 11.7803L1.24603 6.28033C0.91799 5.98744 0.91799 5.51256 1.24603 5.21967Z"
-                      fill="#8E8E8E"
-                  />
+              <div
+                  class="filterSelect_select"
+                  @click="showBrandList"
+              >
+                <div class="filterSelect_value">{{ selected.divBrand }}</div>
+<!--                <img src="../assets/svg/filter-arrow.svg" />-->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.24603 5.21967C1.57407 4.92678 2.10593 4.92678 2.43397 5.21967L8 10.1893L13.566 5.21967C13.8941 4.92678 14.4259 4.92678 14.754 5.21967C15.082 5.51256 15.082 5.98744 14.754 6.28033L8.59397 11.7803C8.26593 12.0732 7.73407 12.0732 7.40603 11.7803L1.24603 6.28033C0.91799 5.98744 0.91799 5.51256 1.24603 5.21967Z" fill="#8E8E8E"/>
                 </svg>
               </div>
-              <div class="filterSelect_dropdown">
-                <ul class="filterSelect_list" id="filterSelect_list"></ul>
+              <div
+                  class="filterSelect_dropdownW"
+                  v-show="brandListBlock"
+              >
+                <ul class="filterSelect_list" id="filterSelect_list">
+                  <li v-for="brand in brands">
+                    <div class="flex items-center h22 mb-1">
+                      <input
+                          type="checkbox"
+                          class="filterCheckbox"
+                          :name="brand.name"
+                          :id="brand.id"
+                          :value="selected.divBrandList.indexOf(brand.id)"
+                          @click="selectBrand(brand.id)"
+                          :checked="selected.divBrandList.indexOf(brand.id) !== -1"
+                      >
+                      <label class="filter_text" :for="brand.id">{{ brand.name }}</label>
+                      <br>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
         </div>
-        <div>
+        <div v-if="models.length">
           <h1 class="filter_title">Модель</h1>
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" checked name="allmodels" id="allmodels" />
-            <label class="filter_text" for="allmodels">Все модели</label><br />
-          </div>
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="fluence" id="fluence" />
-            <label class="filter_text" for="fluence">Fluence</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="duster" id="duster" />
-            <label class="filter_text" for="duster">Duster</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="kaptur1" id="kaptur1" />
-            <label class="filter_text" for="kaptur1">Kaptur</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="micra" id="micra" />
-            <label class="filter_text" for="micra">Micra</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="kangoo" id="kangoo" />
-            <label class="filter_text" for="kangoo">Kangoo</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="kaptur2" id="kaptur2" />
-            <label class="filter_text" for="kaptur2">Kaptur</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="kaptur3" id="kaptur3" />
-            <label class="filter_text" for="kaptur3">Kaptur</label><br />
-          </div>
-
-          <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="talisman" id="talisman" />
-            <label class="filter_text" for="talisman">Talisman</label>
+          <div
+              class="flex items-center h22 mb-1"
+              v-for="model in models"
+              :key="model.id"
+          >
+            <input
+                type="checkbox"
+                :name="model.name"
+                @click="selectModel(model.id)"
+                :checked="selected.divModelList.indexOf(model.id) !== -1"
+            />
+            <label class="filter_text">{{ model.name }}</label>
+            <br />
           </div>
         </div>
+<!--        <div>-->
+<!--          <h1 class="filter_title">Модель</h1>-->
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" checked name="allmodels" id="allmodels" />-->
+<!--            <label class="filter_text" for="allmodels">Все модели</label>-->
+<!--            <br />-->
+<!--          </div>-->
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="fluence" id="fluence" />-->
+<!--            <label class="filter_text" for="fluence">Fluence</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="duster" id="duster" />-->
+<!--            <label class="filter_text" for="duster">Duster</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="kaptur1" id="kaptur1" />-->
+<!--            <label class="filter_text" for="kaptur1">Kaptur</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="micra" id="micra" />-->
+<!--            <label class="filter_text" for="micra">Micra</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="kangoo" id="kangoo" />-->
+<!--            <label class="filter_text" for="kangoo">Kangoo</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="kaptur2" id="kaptur2" />-->
+<!--            <label class="filter_text" for="kaptur2">Kaptur</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="kaptur3" id="kaptur3" />-->
+<!--            <label class="filter_text" for="kaptur3">Kaptur</label><br />-->
+<!--          </div>-->
+
+<!--          <div class="flex items-center h22 mb-1">-->
+<!--            <input type="checkbox" name="talisman" id="talisman" />-->
+<!--            <label class="filter_text" for="talisman">Talisman</label>-->
+<!--          </div>-->
+<!--        </div>-->
         <div>
           <h1 class="filter_title">Год</h1>
           <div class="flex">
@@ -194,12 +345,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "FilterCars"
-}
-</script>
 
 <style scoped>
 
