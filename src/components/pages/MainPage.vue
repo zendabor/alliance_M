@@ -9,6 +9,7 @@ import CreditForm from "../CreditForm.vue";
 import PopupWin from "../PopupWin.vue";
 import PopupSubmit from "../PopupSubmit.vue";
 import axios from 'axios';
+import {API_URL} from "../../main";
 
 export default {
   data() {
@@ -24,12 +25,57 @@ export default {
     PopupSubmit,
     PopupWin,
     CreditForm,
-    SplideSlider, Benefits, CarInfo, FilterCars
+    SplideSlider,
+    Benefits,
+    CarInfo,
+    FilterCars
   },
   methods: {
-    async getCarList() {
+    async getCarList(data) {
+      const params = {};
+      if (data?.brandList.length) {
+        params.brand = data.brandList.join(",");
+      }
+
+      if (data?.modelList.length) {
+        delete params.brand;
+        params.model = data.modelList.join(",");
+      }
+
+      if (data?.year.from) {
+        params.year = `${data.year.from},`;
+      }
+
+      if (data?.year.to) {
+        if (params.year.length) {
+          params.year += data.year.to;
+        } else {
+          params.year = `,${data.year.to}`;
+        }
+      }
+
+      if (data?.price.from) {
+        params.price = `${data.price.from},`;
+      }
+
+      if (data?.price.to) {
+        if (params.price.length) {
+          params.price += data.price.to;
+        } else {
+          params.price = `,${data.price.to}`;
+        }
+      }
+
+      if (data?.mileage.to) {
+        if (params.mileage.length) {
+          params.mileage += data.mileage.to;
+        } else {
+          params.mileage = `,${data.mileage.to}`;
+        }
+      }
+
       try {
-        const response = await axios.get('http://91.222.238.19:900/api/car/list');
+        const response = await axios.get(`${API_URL}/api/car/list`, {params});
         const { data: { data: list } } = response;
         this.cars = list;
       } catch (e) {
@@ -67,7 +113,7 @@ export default {
             </ul>
           </div>
 
-          <FilterCars />
+          <FilterCars @get-cars="getCarList"/>
 
         </div>
         <div class="watch">

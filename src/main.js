@@ -9,6 +9,8 @@ import Splide from '@splidejs/vue-splide';
 
 const app = createApp(App)
 
+export const API_URL = import.meta.env.VITE_API_URL
+
 app.use(router)
 app.use(globalComponents);
 app.use(Splide);

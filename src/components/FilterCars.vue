@@ -1,5 +1,6 @@
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { API_URL } from '../main.js';
 
 export default {
   data() {
@@ -8,10 +9,22 @@ export default {
       brands: [],
       models: [],
       selected: {
-        brand: String,
+        brand: '',
         divBrand: 'Выберите марку',
-        divBrandList: [],
-        divModelList: [],
+        brandList: [],
+        modelList: [],
+        year: {
+          from: '',
+          to: '',
+        },
+        price: {
+          from: '',
+          to: '',
+        },
+        mileage: {
+          from: '',
+          to: '',
+        },
       }
     }
   },
@@ -22,7 +35,7 @@ export default {
   },
   methods: {
     clear() {
-      this.selected.divBrandList = [];
+      this.selected.brandList = [];
       this.models = [];
 
       console.log('clear filter')
@@ -31,23 +44,21 @@ export default {
       console.log('only new')
     },
     showBrandList() {
-      console.log('showBrandList')
       this.brandListBlock = !this.brandListBlock;
     },
     async getBrandList() {
       try {
-        const response = await axios.get('http://91.222.238.19:900/api/brands');
+        const response = await axios.get(`${API_URL}/api/brands`);
         const { data: list } = response;
         this.brands = list;
-        console.log(list);
       } catch (e) {
 
       }
     },
     async getModelList() {
       try {
-        const params = {brands: this.selected.divBrandList.join(",")};
-        const response = await axios.get('http://91.222.238.19:900/api/models', {params});
+        const params = {brands: this.selected.brandList.join(",")};
+        const response = await axios.get(`${API_URL}/api/models`, {params});
         const { data: list } = response;
         this.models = list;
       } catch (e) {
@@ -61,48 +72,56 @@ export default {
           if (value.id !== 0) result.push(value.id);
         });
 
-        if (this.selected.divBrandList.length && this.selected.divBrandList.length === result.length) {
-          this.selected.divBrandList = [];
+        if (this.selected.brandList.length && this.selected.brandList.length === result.length) {
+          this.selected.brandList = [];
         } else {
-          this.selected.divBrandList = result;
+          this.selected.brandList = result;
         }
       } else {
-        if (this.selected.divBrandList.indexOf(id) !== -1) {
-          this.selected.divBrandList = this.selected.divBrandList.filter(brandId => brandId !== id);
+        if (this.selected.brandList.indexOf(id) !== -1) {
+          this.selected.brandList = this.selected.brandList.filter(brandId => brandId !== id);
         } else {
-          this.selected.divBrandList.push(id);
+          this.selected.brandList.push(id);
         }
-        console.log(this.selected.divBrandList)
       }
 
-      this.selected.divBrand = this.selected.divBrandList.length ? `Выбрано ${this.selected.divBrandList.length}` : `Выберите марку`;
-      if (this.selected.divBrandList.length) {
+      this.selected.divBrand = this.selected.brandList.length ? `Выбрано ${this.selected.brandList.length}` : `Выберите марку`;
+      if (this.selected.brandList.length) {
+        this.selected.modelList = [];
         this.getModelList();
+        this.$emit('get-cars', this.selected);
       }
     },
     selectModel(id) {
-      let selectedList = this.selected.divModelList;
-
       if (id === 0) {
         let result = [];
         Object.entries(this.models).forEach(([key, value]) => {
           if (value.id !== 0) result.push(value.id);
         });
 
-        if (selectedList.length && selectedList.length === result.length) {
-          selectedList = [];
+        if (this.selected.modelList.length && this.selected.modelList.length === result.length) {
+          this.selected.modelList = [];
         } else {
-          selectedList = result;
+          this.selected.modelList = result;
         }
       } else {
-        if (selectedList.indexOf(id) !== -1) {
-          this.selected.divModelList = selectedList.filter(modelId => modelId !== id);
+        if (this.selected.modelList.indexOf(id) !== -1) {
+          this.selected.modelList = this.selected.modelList.filter(modelId => modelId !== id);
         } else {
-          this.selected.divModelList.push(id);
+          this.selected.modelList.push(id);
         }
       }
 
-      this.selected.divModelList = selectedList;
+      this.$emit('get-cars', this.selected);
+    },
+    selectYear() {
+      this.$emit('get-cars', this.selected);
+    },
+    selectPrice() {
+      this.$emit('get-cars', this.selected);
+    },
+    selectMileage() {
+      this.$emit('get-cars', this.selected);
     },
   },
   mounted() {
@@ -175,9 +194,9 @@ export default {
                           class="filterCheckbox"
                           :name="brand.name"
                           :id="brand.id"
-                          :value="selected.divBrandList.indexOf(brand.id)"
+                          :value="selected.brandList.indexOf(brand.id)"
                           @click="selectBrand(brand.id)"
-                          :checked="selected.divBrandList.indexOf(brand.id) !== -1"
+                          :checked="selected.brandList.indexOf(brand.id) !== -1"
                       >
                       <label class="filter_text" :for="brand.id">{{ brand.name }}</label>
                       <br>
@@ -200,78 +219,67 @@ export default {
                 type="checkbox"
                 :name="model.name"
                 @click="selectModel(model.id)"
-                :checked="selected.divModelList.indexOf(model.id) !== -1"
+                :checked="selected.modelList.indexOf(model.id) !== -1"
             />
             <label class="filter_text">{{ model.name }}</label>
             <br />
           </div>
         </div>
-<!--        <div>-->
-<!--          <h1 class="filter_title">Модель</h1>-->
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" checked name="allmodels" id="allmodels" />-->
-<!--            <label class="filter_text" for="allmodels">Все модели</label>-->
-<!--            <br />-->
-<!--          </div>-->
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="fluence" id="fluence" />-->
-<!--            <label class="filter_text" for="fluence">Fluence</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="duster" id="duster" />-->
-<!--            <label class="filter_text" for="duster">Duster</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="kaptur1" id="kaptur1" />-->
-<!--            <label class="filter_text" for="kaptur1">Kaptur</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="micra" id="micra" />-->
-<!--            <label class="filter_text" for="micra">Micra</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="kangoo" id="kangoo" />-->
-<!--            <label class="filter_text" for="kangoo">Kangoo</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="kaptur2" id="kaptur2" />-->
-<!--            <label class="filter_text" for="kaptur2">Kaptur</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="kaptur3" id="kaptur3" />-->
-<!--            <label class="filter_text" for="kaptur3">Kaptur</label><br />-->
-<!--          </div>-->
-
-<!--          <div class="flex items-center h22 mb-1">-->
-<!--            <input type="checkbox" name="talisman" id="talisman" />-->
-<!--            <label class="filter_text" for="talisman">Talisman</label>-->
-<!--          </div>-->
-<!--        </div>-->
         <div>
           <h1 class="filter_title">Год</h1>
           <div class="flex">
-            <input class="filter_from" type="number" placeholder="От" />
-            <input class="filter_to" type="number" placeholder="До" />
+            <input
+                v-model="selected.year.from"
+                class="filter_from"
+                type="number"
+                placeholder="От"
+                @change="selectYear"
+            />
+            <input
+                v-model="selected.year.to"
+                class="filter_to"
+                type="number"
+                placeholder="До"
+                @change="selectYear"
+            />
           </div>
         </div>
         <div>
           <h1 class="filter_title">Цена</h1>
           <div class="flex">
-            <input class="filter_from" type="number" placeholder="От" />
-            <input class="filter_to" type="number" placeholder="До" />
+            <input
+                v-model="selected.price.from"
+                class="filter_from"
+                type="number"
+                placeholder="От"
+                @change="selectPrice"
+            />
+            <input
+                v-model="selected.price.to"
+                class="filter_to"
+                type="number"
+                placeholder="До"
+                @change="selectPrice"
+            />
           </div>
         </div>
         <div>
           <h1 class="filter_title">Пробег</h1>
           <div class="flex">
-            <input class="filter_from" type="number" placeholder="От" />
-            <input class="filter_to" type="number" placeholder="До" />
+            <input
+                v-model="selected.mileage.from"
+                class="filter_from"
+                type="number"
+                placeholder="От"
+                @change="selectMileage"
+            />
+            <input
+                v-model="selected.mileage.to"
+                class="filter_to"
+                type="number"
+                placeholder="До"
+                @change="selectMileage"
+            />
           </div>
         </div>
         <div>
