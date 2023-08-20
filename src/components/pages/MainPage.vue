@@ -34,44 +34,31 @@ export default {
     async getCarList(data) {
       const params = {};
       if (data?.brandList.length) {
-        params.brand = data.brandList.join(",");
+        params.brand = this.setBrand(data);
       }
 
       if (data?.modelList.length) {
-        delete params.brand;
-        params.model = data.modelList.join(",");
+        params.model = this.setModel(data);
       }
 
-      if (data?.year.from) {
-        params.year = `${data.year.from},`;
+      if (data?.year) {
+        params.year = this.setYear(data);
       }
 
-      if (data?.year.to) {
-        if (params.year.length) {
-          params.year += data.year.to;
-        } else {
-          params.year = `,${data.year.to}`;
-        }
+      if (data?.mileage) {
+        params.mileage = this.setMileage(data);
       }
 
-      if (data?.price.from) {
-        params.price = `${data.price.from},`;
+      if (data?.wheel_drive) {
+        params.wheel_drive = this.setWheelDrive(data);
       }
 
-      if (data?.price.to) {
-        if (params.price.length) {
-          params.price += data.price.to;
-        } else {
-          params.price = `,${data.price.to}`;
-        }
+      if (data?.kpp) {
+        params.kpp = this.setKpp(data);
       }
 
-      if (data?.mileage.to) {
-        if (params.mileage.length) {
-          params.mileage += data.mileage.to;
-        } else {
-          params.mileage = `,${data.mileage.to}`;
-        }
+      if (data?.fuel) {
+        params.fuel = this.setFuel(data);
       }
 
       try {
@@ -81,7 +68,65 @@ export default {
       } catch (e) {
 
       }
-    }
+    },
+    setBrand : (data) => data.brandList.join(","),
+    setModel: (data) => data.modelList.join(","),
+    setYear: (data) => {
+      let params = '';
+
+      if (data?.year?.from) {
+        params = `${data.year.from},`;
+      }
+
+      if (data?.year?.to) {
+        params = params.length ? (params + data.year.to) : `,${data.year.to}`;
+      }
+
+      return params;
+    },
+    setMileage: (data) => {
+      let params = '';
+
+      if (data.mileage?.from) {
+        params += data.mileage.to;
+      }
+
+      if (data.mileage?.to) {
+        params = params.length ? (params + data.mileage.to) : `,${data.mileage.to}`;
+      }
+
+      return params;
+    },
+    setWheelDrive: (data) => {
+      let params = [];
+
+      params.push(data.wheel_drive?.fwd ? 'fwd' : '');
+      params.push(data.wheel_drive?.rwd ? 'rwd' : '');
+      params.push(data.wheel_drive?.awd ? 'awd' : '');
+
+      return params.join(',');
+    },
+    setKpp: (data) => {
+      let params = [];
+
+      params.push(data.kpp?.dct ? 'dct' : '');
+      params.push(data.kpp?.akpp ? 'akpp' : '');
+      params.push(data.kpp?.mkpp ? 'mkpp' : '');
+      params.push(data.kpp?.cvt ? 'cvt' : '');
+
+      return params.join(',');
+    },
+    setFuel: (data) => {
+      let params = [];
+
+      params.push(data.fuel?.benzin ? 'benzin' : '');
+      params.push(data.fuel?.elector ? 'elector' : '');
+      params.push(data.fuel?.diesel ? 'diesel' : '');
+      params.push(data.fuel?.hybrid ? 'hybrid' : '');
+      params.push(data.fuel?.hbo ? 'hbo' : '');
+
+      return params.join(',');
+    },
   },
   mounted() {
     this.getCarList();

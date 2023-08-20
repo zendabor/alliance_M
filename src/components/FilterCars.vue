@@ -25,6 +25,24 @@ export default {
           from: '',
           to: '',
         },
+        wheel_drive: {
+          fwd: false,
+          rwd: false,
+          awd: false,
+        },
+        kpp: {
+          dct: false,
+          akpp: false,
+          mkpp: false,
+          cvt: false,
+        },
+        fuel: {
+          benzin: false,
+          elector: false,
+          diesel: false,
+          hybrid: false,
+          hbo: false,
+        },
       }
     }
   },
@@ -34,12 +52,6 @@ export default {
     },
   },
   methods: {
-    clear() {
-      this.selected.brandList = [];
-      this.models = [];
-
-      console.log('clear filter')
-    },
     onlyNew() {
       console.log('only new')
     },
@@ -123,6 +135,57 @@ export default {
     selectMileage() {
       this.$emit('get-cars', this.selected);
     },
+    selectedWheelDrive() {
+      this.$emit('get-cars', this.selected);
+    },
+    selectedKPP() {
+      this.$emit('get-cars', this.selected);
+    },
+    selectedFuel() {
+      this.$emit('get-cars', this.selected);
+    },
+    getCars() {
+      this.$emit('get-cars', this.selected);
+    },
+    clearFilters() {
+      this.selected = {
+        brand: '',
+        divBrand: 'Выберите марку',
+        brandList: [],
+        modelList: [],
+        year: {
+          from: '',
+          to: '',
+        },
+        price: {
+          from: '',
+          to: '',
+        },
+        mileage: {
+          from: '',
+          to: '',
+        },
+        wheel_drive: {
+          fwd: false,
+          rwd: false,
+          awd: false,
+        },
+        kpp: {
+          dct: false,
+          akpp: false,
+          mkpp: false,
+          cvt: false,
+        },
+        fuel: {
+          benzin: false,
+          elector: false,
+          diesel: false,
+          hybrid: false,
+          hbo: false,
+        },
+      }
+      this.$emit('get-cars', {});
+    }
   },
   mounted() {
     this.getBrandList();
@@ -137,7 +200,7 @@ export default {
         <div>
           <div class="flex justify-between items-center">
             <h1 class="filter_title">Фильтр</h1>
-            <button type="button" class="btn-clear" @click="clear">
+            <button type="button" class="btn-clear" @click="clearFilters">
 <!--              <img src="../assets/svg/basket.svg" alt="new-model">-->
               <svg
                   width="16"
@@ -285,17 +348,33 @@ export default {
         <div>
           <h1 class="filter_title">Привод</h1>
           <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="front" id="front" />
+            <input
+                v-model="selected.wheel_drive.fwd"
+                type="checkbox"
+                name="front"
+                id="front"
+                @change="selectedWheelDrive"
+            />
             <label class="filter_text" for="front">Передний</label><br />
           </div>
 
           <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="back" id="back" />
+            <input
+                v-model="selected.wheel_drive.rwd"
+                type="checkbox"
+                name="back"
+                id="back"
+            />
             <label class="filter_text" for="back">Задний</label><br />
           </div>
 
           <div class="flex items-center h22 mb-1">
-            <input type="checkbox" name="full" id="full" />
+            <input
+                v-model="selected.wheel_drive.awd"
+                type="checkbox"
+                name="full"
+                id="full"
+            />
             <label class="filter_text" for="full">Полный</label><br />
           </div>
         </div>
@@ -303,19 +382,43 @@ export default {
           <h1 class="filter_title">Коробка передач</h1>
           <div class="box-grid">
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="robot" id="robot" />
+              <input
+                  v-model="selected.kpp.dct"
+                  type="checkbox"
+                  name="robot"
+                  id="robot"
+                  @change="selectedKPP"
+              />
               <label class="filter_text" for="robot">Робот</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="avtomat" id="avtomat" />
+              <input
+                  v-model="selected.kpp.akpp"
+                  type="checkbox"
+                  name="avtomat"
+                  id="avtomat"
+                  @change="selectedKPP"
+              />
               <label class="filter_text" for="avtomat">Автомат</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="mechanic" id="mechanic" />
+              <input
+                  v-model="selected.kpp.mkpp"
+                  type="checkbox"
+                  name="mechanic"
+                  id="mechanic"
+                  @change="selectedKPP"
+              />
               <label class="filter_text" for="mechanic">Механика</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="variable" id="variable" />
+              <input
+                  v-model="selected.kpp.cvt"
+                  type="checkbox"
+                  name="variable"
+                  id="variable"
+                  @change="selectedKPP"
+              />
               <label class="filter_text" for="variable">Вариатор</label>
             </div>
           </div>
@@ -324,30 +427,68 @@ export default {
           <h1 class="filter_title">Топливо</h1>
           <div class="box-grid">
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="benzin" id="benzin" />
+              <input
+                  v-model="selected.fuel.benzin"
+                  type="checkbox"
+                  name="benzin"
+                  id="benzin"
+                  @change="selectedFuel"
+              />
               <label class="filter_text" for="benzin">Бензин</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="elector" id="elector" />
+              <input
+                  v-model="selected.fuel.elector"
+                  type="checkbox"
+                  name="elector"
+                  id="elector"
+                  @change="selectedFuel"
+              />
               <label class="filter_text" for="elector">Электро</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="diesel" id="diesel" />
+              <input
+                  v-model="selected.fuel.diesel"
+                  type="checkbox"
+                  name="diesel"
+                  id="diesel"
+                  @change="selectedFuel"
+              />
               <label class="filter_text" for="diesel">Дизель</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="hybrid" id="hybrid" />
+              <input
+                  v-model="selected.fuel.hybrid"
+                  type="checkbox"
+                  name="hybrid"
+                  id="hybrid"
+                  @change="selectedFuel"
+              />
               <label class="filter_text" for="hybrid">Гибрид</label>
             </div>
             <div class="flex items-center h22 mb-1">
-              <input type="checkbox" name="hbo" id="hbo" />
+              <input
+                  v-model="selected.fuel.hbo"
+                  type="checkbox"
+                  name="hbo"
+                  id="hbo"
+                  @change="selectedFuel"
+              />
               <label class="filter_text" for="hbo">ГБО</label>
             </div>
           </div>
         </div>
         <div class="flex">
-          <button type="button" class="btn-apply filter-close">Применить</button>
-          <button type="button" class="btn-clear-2">Очистить</button>
+          <button
+              type="button"
+              class="btn-apply filter-close"
+              @click="getCars"
+          >Применить</button>
+          <button
+              type="button"
+              class="btn-clear-2"
+              @click="clearFilters"
+          >Очистить</button>
         </div>
       </div>
     </div>
