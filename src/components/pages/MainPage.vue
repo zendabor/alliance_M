@@ -41,23 +41,23 @@ export default {
         params.model = this.setModel(data);
       }
 
-      if (data?.year) {
+      if (this.hasOption(data, 'year')) {
         params.year = this.setYear(data);
       }
 
-      if (data?.mileage) {
+      if (this.hasOption(data, 'mileage')) {
         params.mileage = this.setMileage(data);
       }
 
-      if (data?.wheel_drive) {
+      if (this.hasOption(data, 'wheel_drive')) {
         params.wheel_drive = this.setWheelDrive(data);
       }
 
-      if (data?.kpp) {
+      if (this.hasOption(data, 'kpp')) {
         params.kpp = this.setKpp(data);
       }
 
-      if (data?.fuel) {
+      if (this.hasOption(data, 'fuel')) {
         params.fuel = this.setFuel(data);
       }
 
@@ -69,16 +69,27 @@ export default {
 
       }
     },
+    hasOption(data, property) {
+      if (data !== undefined) {
+        Object.keys(data[property])
+            .filter(key => !data[property][key])
+            .forEach(key => delete data[property][key]);
+        return !!Object.values(data[property]).length;
+      } else {
+        return false;
+      }
+    },
     setBrand : (data) => data.brandList.join(","),
     setModel: (data) => data.modelList.join(","),
     setYear: (data) => {
       let params = '';
 
-      if (data?.year?.from) {
+      console.log('YEAR', data.year)
+      if (data.year?.from) {
         params = `${data.year.from},`;
       }
 
-      if (data?.year?.to) {
+      if (data.year?.to) {
         params = params.length ? (params + data.year.to) : `,${data.year.to}`;
       }
 
