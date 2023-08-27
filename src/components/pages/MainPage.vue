@@ -131,7 +131,7 @@ export default {
       let params = [];
 
       params.push(data.fuel?.benzin ? 'benzin' : '');
-      params.push(data.fuel?.elector ? 'elector' : '');
+      params.push(data.fuel?.electro ? 'electro' : '');
       params.push(data.fuel?.diesel ? 'diesel' : '');
       params.push(data.fuel?.hybrid ? 'hybrid' : '');
       params.push(data.fuel?.hbo ? 'hbo' : '');

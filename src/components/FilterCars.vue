@@ -38,7 +38,7 @@ export default {
         },
         fuel: {
           benzin: false,
-          elector: false,
+          electro: false,
           diesel: false,
           hybrid: false,
           hbo: false,
@@ -178,7 +178,7 @@ export default {
         },
         fuel: {
           benzin: false,
-          elector: false,
+          electro: false,
           diesel: false,
           hybrid: false,
           hbo: false,
@@ -364,6 +364,7 @@ export default {
                 type="checkbox"
                 name="back"
                 id="back"
+                @change="selectedWheelDrive"
             />
             <label class="filter_text" for="back">Задний</label><br />
           </div>
@@ -374,6 +375,7 @@ export default {
                 type="checkbox"
                 name="full"
                 id="full"
+                @change="selectedWheelDrive"
             />
             <label class="filter_text" for="full">Полный</label><br />
           </div>
@@ -438,13 +440,13 @@ export default {
             </div>
             <div class="flex items-center h22 mb-1">
               <input
-                  v-model="selected.fuel.elector"
+                  v-model="selected.fuel.electro"
                   type="checkbox"
-                  name="elector"
-                  id="elector"
+                  name="electro"
+                  id="electro"
                   @change="selectedFuel"
               />
-              <label class="filter_text" for="elector">Электро</label>
+              <label class="filter_text" for="electro">Электро</label>
             </div>
             <div class="flex items-center h22 mb-1">
               <input
