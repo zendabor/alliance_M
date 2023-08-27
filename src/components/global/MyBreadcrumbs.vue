@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    page: String
+    page: ''
   }
 }
 </script>
