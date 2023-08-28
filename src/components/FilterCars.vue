@@ -184,7 +184,7 @@ export default {
           hbo: false,
         },
       }
-      this.$emit('get-cars', {});
+      this.$emit('clear', this.selected);
     }
   },
   mounted() {

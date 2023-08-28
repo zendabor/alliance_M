@@ -19,6 +19,17 @@ export default {
         contact: contact,
       },
       cars: [],
+      params: {
+        brand: '',
+        model: '',
+        year: {},
+        mileage: {},
+        wheel_drive: '',
+        kpp: '',
+        fuel: '',
+      },
+      page: 0,
+      key: 0,
     }
   },
   components: {
@@ -32,45 +43,46 @@ export default {
   },
   methods: {
     async getCarList(data) {
-      const params = {};
-      if (data?.brandList.length) {
-        params.brand = this.setBrand(data);
+      if (data?.brandList?.length) {
+        this.params.brand = this.setBrand(data);
       }
 
-      if (data?.modelList.length) {
-        params.model = this.setModel(data);
+      if (data?.modelList?.length) {
+        this.params.model = this.setModel(data);
       }
 
       if (this.hasOption(data, 'year')) {
-        params.year = this.setYear(data);
+        this.params.year = this.setYear(data);
       }
 
       if (this.hasOption(data, 'mileage')) {
-        params.mileage = this.setMileage(data);
+        this.params.mileage = this.setMileage(data);
       }
 
       if (this.hasOption(data, 'wheel_drive')) {
-        params.wheel_drive = this.setWheelDrive(data);
+        this.params.wheel_drive = this.setWheelDrive(data);
       }
 
       if (this.hasOption(data, 'kpp')) {
-        params.kpp = this.setKpp(data);
+        this.params.kpp = this.setKpp(data);
       }
 
       if (this.hasOption(data, 'fuel')) {
-        params.fuel = this.setFuel(data);
+        this.params.fuel = this.setFuel(data);
       }
 
       try {
-        const response = await axios.get(`${API_URL}/api/car/list`, {params});
-        const { data: { data: list } } = response;
-        this.cars = list;
-      } catch (e) {
+        const response = await axios.get(`${API_URL}/api/car/list`, {params: this.params});
+        const { data: { data: list, current_page: page } } = response;
 
+        this.cars = list;
+        this.page = page;
+      } catch (e) {
+        console.log(e)
       }
     },
     hasOption(data, property) {
-      if (data !== undefined) {
+      if (data !== undefined && data[property] !== undefined) {
         Object.keys(data[property])
             .filter(key => !data[property][key])
             .forEach(key => delete data[property][key]);
@@ -84,7 +96,6 @@ export default {
     setYear: (data) => {
       let params = '';
 
-      console.log('YEAR', data.year)
       if (data.year?.from) {
         params = `${data.year.from},`;
       }
@@ -138,6 +149,32 @@ export default {
 
       return params.join(',');
     },
+    async getMoreCar() {
+      try {
+        this.params.page = this.page + 1;
+        const response = await axios.get(`${API_URL}/api/car/list`, {params: this.params});
+        const { data: { data: list, current_page: page }, } = response;
+
+        this.cars = [...this.cars, ...list];
+        this.page = page;
+        this.key++;
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async clear() {
+      try {
+        this.params.page = this.page = 1;
+        const response = await axios.get(`${API_URL}/api/car/list`, {params: {}});
+        const { data: { data: list, current_page: page }, } = response;
+
+        this.cars = list;
+        this.page = page;
+        this.key++;
+      } catch (e) {
+        console.log(e)
+      }
+    }
   },
   mounted() {
     this.getCarList();
@@ -162,20 +199,24 @@ export default {
             </router-link>
           </div>
         </div>
-        <div class="cars_container">
+        <div class="cars_container" :key="key">
           <div class="cars_buy car homeCars">
-            <ul class="car_list">
+            <ul class="car_list" :key="key">
               <CarInfo v-for="car in cars" :key="car.id" :car="car"/>
             </ul>
           </div>
 
-          <FilterCars @get-cars="getCarList"/>
+          <FilterCars @get-cars="getCarList" @clear="clear"/>
 
         </div>
         <div class="watch">
-          <router-link to="/" class="watch-link" target="_blank" id="show-more">
-            <button type="button" class="btn-watch">Посмотреть еще</button>
-          </router-link>
+          <div class="watch-link" id="show-more">
+            <button
+                type="button"
+                class="btn-watch"
+                @click="getMoreCar"
+            >Посмотреть еще</button>
+          </div>
         </div>
       </div>
 
