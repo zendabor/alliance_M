@@ -74,7 +74,6 @@ export default {
       return `${price} ₽`;
     },
     getMinPay() {
-      let price = this.preparePrice(this.car.price);
       const month = 7 * 12;
       const sum = this.car.price / month;
 
@@ -84,7 +83,7 @@ export default {
     },
     preparePrice(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    }
+    },
   }
 }
 </script>

@@ -21,9 +21,35 @@ export default {
               id: 0,
               name: '',
             }
-          }
+          },
+          engine: {
+            id: 0,
+            type: '',
+            engine_power: '',
+            engine_volume: '',
+          },
+          description: '',
+        },
+        price: 0,
+        vehicle_mileage: 0,
+        availability: '',
+        body: {
+          id: 0,
+          name: '',
+        },
+        wheel_drive: '',
+        color: {
+          id: 0,
+          name: '',
+        },
+        fuel: '',
+        pictures: [],
+        kpp: {
+          id: 0,
+          name: '',
         }
       },
+      pageName: 'Каталог'
     }
   },
   methods: {
@@ -32,7 +58,6 @@ export default {
         const id = this.$route.params.id;
         const response = await axios.get(`${API_URL}/api/car/${id}`);
         const {data: car} = response;
-        console.log({car})
         this.car = car;
       } catch (e) {
         console.log(e)
@@ -40,6 +65,39 @@ export default {
     },
     getAutoName() {
       return `${this.car.configuration.model.brand.name} ${this.car.configuration.model.name} ${this.car.year}`;
+    },
+    getPrice() {
+      let price = this.prepareNum(this.car.price);
+
+      return `${price} ₽`;
+    },
+    getMinPay() {
+      const months = 7 * 12;
+      const sum = this.car.price / months;
+
+      const fullSum = sum + 0.07 * sum + 0.01 * sum;
+
+      return `${this.prepareNum(fullSum.toFixed())} ₽ / мин. платеж`;
+    },
+    prepareNum(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    },
+    getMileage() {
+      return `${this.prepareNum(this.car.vehicle_mileage)} км`;
+    },
+    getEngineVolume() {
+      const power = this.car.configuration.engine.engine_power;
+      const volume = this.car.configuration.engine.engine_volume;
+
+      return `${(volume / 1000).toFixed(1)} л (${power})`;
+    },
+    getConfiguration() {
+      const decode = this.car.configuration.description
+          .replace(/\\u(....)/g, (match, p1) => String.fromCharCode(parseInt(p1, 16)))
+          .replace(/\\(\d{3})/g, (match, p1) => String.fromCharCode(parseInt(p1,  8)))
+          .replace(/"/g, "");
+
+      return decode.split(',');
     }
   },
   mounted() {
@@ -51,7 +109,7 @@ export default {
 <template>
   <main class="main">
     <div class="wrapper">
-      <MyBreadcrumbs :page="Каталог" />
+      <MyBreadcrumbs :page="pageName" />
       <div class="detail-product">
         <div class="detail-product_container">
           <div class="title-block">
@@ -86,13 +144,19 @@ export default {
     </div>
     <div class="splide__track">
       <ul class="splide__list">
-
-<!--        <li class="splide__slide splide-li">-->
-<!--          <a href="#car1" class="popup-link" data-src="{{ $picture->src }}">-->
-<!--            <img class="splide-img" src="{{ $picture->src }}" alt="{{ $picture->name }}"/>-->
-<!--          </a>-->
-<!--        </li>-->
-
+        <li
+            class="splide__slide splide-li"
+            v-for="picture in car.pictures"
+            :key="picture.id"
+        >
+          <a href="#car1" class="popup-link" :data-src="picture.src">
+            <img
+                class="splide-img"
+                :src="picture.src"
+                :alt="picture.name"
+            />
+          </a>
+        </li>
       </ul>
     </div>
   </section>
@@ -104,20 +168,20 @@ export default {
           <div class="detail-product-price">
             <div class="detail-product-price_container">
               <div class="detail-price">
-<!--                <p>{{ $car->getPrice() }}-->
-<!--                  <span class="detail-min-price" data-da="detail-product-price_container,1,575">{{ $car->getMinPrice() }}</span>-->
-<!--                </p>-->
-<!--                <div class="detail-available">{{ $car->store ? 'В наличии' : '' }}</div>-->
+                <p>{{ getPrice() }}
+                  <span class="detail-min-price" data-da="detail-product-price_container,1,575">{{ getMinPay() }}</span>
+                </p>
+                <div class="detail-available">{{ car.availability }}</div>
               </div>
               <div class="detail-info">
                 <ul>
-<!--                  <li>Пробег: <span>{{ $car->getMileage() }}</span></li>-->
-<!--                  <li>Тип кузова: <span>{{ $car->body->name }}</span></li>-->
-<!--                  <li>Привод: <span>{{ $car->wheel_drive }}</span></li>-->
+                  <li>Пробег: <span>{{ getMileage() }}</span></li>
+                  <li>Тип кузова: <span>{{ car.body.name }}</span></li>
+                  <li>Привод: <span>{{ car.wheel_drive }}</span></li>
                 </ul>
                 <div class="detail-see">
                   <div class="white-rounded"></div>
-<!--                  <p>{{ $car->color->name }}</p>-->
+                  <p>{{ car.color.name }}</p>
                 </div>
               </div>
               <div class="detail-btns">
@@ -178,7 +242,11 @@ export default {
             </div>
           </div>
           <div class="detail-img" data-da="details-right,1,992">
-<!--            <img src="{{ $car->pictures->first()->src }}" />-->
+            <img
+                v-for="picture in car.pictures"
+                :src="picture.src"
+                :alt="picture.name"
+            />
           </div>
         </div>
         <div class="details-right">
@@ -189,13 +257,13 @@ export default {
                   <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.2844 10.6452H15C14.8834 11.8765 14.4812 13.0605 13.8276 14.0962C12.4574 12.7045 10.6931 11.8035 8.79314 11.5247L11.0776 8.02464L11.0775 8.02475C11.2315 7.7927 11.2543 7.49317 11.1372 7.23901C11.0202 6.98487 10.7811 6.8147 10.5101 6.7926C10.2391 6.7705 9.97727 6.89977 9.82323 7.13182L7.06902 11.4355C5.95914 11.4904 4.86888 11.7583 3.8534 12.2257C2.86682 12.6807 1.96628 13.3141 1.19398 14.0962C0.532649 13.0627 0.123083 11.8786 0 10.6451H0.715555C0.985069 10.6451 1.23402 10.4963 1.36877 10.2546C1.50352 10.0129 1.50352 9.71502 1.36877 9.47332C1.23401 9.23162 0.985052 9.08276 0.715555 9.08276H0C0.144715 7.55579 0.723785 6.10785 1.66384 4.92202L2.17244 5.44431V5.44442C2.3138 5.59161 2.50647 5.67367 2.70691 5.67211C2.90813 5.67267 3.10121 5.59004 3.24322 5.44252C3.38534 5.29488 3.46457 5.09466 3.46338 4.88625C3.46229 4.67785 3.38079 4.47864 3.23705 4.33279L2.75863 3.81935C3.3194 3.34246 3.94363 2.95156 4.61199 2.65874C5.30028 2.36401 6.02623 2.17457 6.76711 2.09619V2.83719C6.76711 3.11633 6.91085 3.37429 7.14431 3.51385C7.37767 3.65342 7.66516 3.65342 7.89863 3.51385C8.132 3.37428 8.27572 3.11631 8.27572 2.83719V2.09619C9.74959 2.24742 11.1475 2.84695 12.293 3.81935L11.7671 4.34175C11.6231 4.48793 11.5415 4.68783 11.5407 4.89667C11.5399 5.10563 11.6199 5.3062 11.7629 5.45348C11.9059 5.6009 12.0999 5.68273 12.3016 5.68094C12.5003 5.67993 12.6906 5.59821 12.8318 5.45325L13.336 4.93097C14.2761 6.11668 14.8551 7.56473 14.9999 9.0917H14.2843C14.0148 9.0917 13.7658 9.24069 13.6311 9.48238C13.4964 9.72407 13.4963 10.0219 13.6311 10.2636C13.7659 10.5053 14.0148 10.6542 14.2843 10.6542L14.2844 10.6452Z" fill="#E7E7E7"/>
                   </svg>
-<!--                  {{ car.getMileage() }}-->
+                  {{ getMileage() }}
                 </li>
                 <li>
                   <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.4348 1.31017C8.41323 1.26983 8.38171 1.23292 8.34218 1.20128C8.25731 1.13234 8.13757 1.09415 8.01305 1.0963C7.88078 1.09386 7.7529 1.13175 7.6581 1.20128C7.61676 1.23185 7.58512 1.26915 7.56548 1.31017C6.74758 2.07236 0.693296 7.92507 2.25675 11.9618C2.50334 12.5697 2.92171 13.1297 3.48311 13.6031C4.0445 14.0766 4.73529 14.452 5.50776 14.7034C6.25619 14.9599 7.06778 15.0936 7.88942 15.0962H8.01807H8.01794C8.97718 15.0766 9.92011 14.9043 10.7854 14.5906C11.4914 14.3302 12.1185 13.9622 12.6276 13.5098C13.1365 13.0574 13.5164 12.5304 13.7432 11.9618C15.3068 7.92532 9.25257 2.07641 8.43447 1.31017H8.4348ZM9.92646 10.9623C9.8124 11.331 9.53467 11.659 9.13954 11.8917C8.81868 12.0916 8.41578 12.2008 8.00012 12.2008C7.58445 12.2008 7.18155 12.0916 6.8607 11.8917C6.46583 11.6582 6.18667 11.3307 6.06862 10.9623C5.56962 9.4418 7.21568 7.18633 7.99754 6.22585C8.78459 7.18628 10.4306 9.43805 9.92646 10.9623Z" fill="#E7E7E7"/>
                   </svg>
-<!--                  {{ $car->getFuelType() }}-->
+                  {{ car.configuration.engine.type }}
                 </li>
                 <li>
                   <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,13 +276,13 @@ export default {
                       </clipPath>
                     </defs>
                   </svg>
-<!--                  {{ $car->getMotorType() }}-->
+                  {{ getEngineVolume() }}
                 </li>
                 <li>
                   <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.9999 2.8331C14.9999 1.88862 14.2382 1.11164 13.2784 1.11164C12.3339 1.11164 11.557 1.87334 11.557 2.8331C11.557 3.5948 12.0597 4.23462 12.7452 4.46319V7.82989L8.54091 7.82978V4.44785C9.22641 4.21938 9.72916 3.57946 9.72916 2.81776C9.72916 1.87328 8.96746 1.0963 8.0077 1.0963C7.06322 1.0963 6.28623 1.85799 6.28623 2.81776C6.28623 3.57946 6.78895 4.21928 7.47448 4.44785V7.81455L3.25468 7.81444V4.44774C3.94018 4.21928 4.44293 3.57935 4.44293 2.81765C4.44293 1.87318 3.68123 1.09619 2.72146 1.09619C1.77699 1.09619 1 1.85789 1 2.81765C1 3.57935 1.50272 4.21918 2.18825 4.44774V12.2323C1.50275 12.4608 1.01532 13.1006 1.01532 13.8623C1.01532 14.8067 1.77701 15.5837 2.73678 15.5837C3.68126 15.5837 4.45824 14.822 4.45824 13.8623C4.45824 13.1006 3.95552 12.4607 3.26999 12.2322L3.26989 8.88071H7.48969V12.2474C6.80419 12.4759 6.30144 13.1158 6.30144 13.8775C6.30144 14.822 7.06314 15.599 8.02291 15.599C8.96738 15.599 9.74437 14.8373 9.74437 13.8775C9.74437 13.1158 9.24165 12.476 8.55612 12.2474L8.55601 8.88071H13.309C13.5985 8.88071 13.8422 8.63694 13.8422 8.34747V4.44758C14.5126 4.21901 15 3.5945 15 2.83281L14.9999 2.8331Z" fill="#E7E7E7"/>
                   </svg>
-<!--                  {{ $car->kpp->name }}-->
+                  {{ car.kpp.name }}
                 </li>
               </ul>
             </div>
@@ -222,71 +290,10 @@ export default {
           </div>
           <div class="detail-complectation">
             <h1>Комплектация</h1>
-            <ul>
-              <p>Безопасность</p>
-              <li>•Подушка безопасности пассажира</li>
-              <li>•Подушки безопасности боковые</li>
-              <li>•Крепление детского кресла (задний ряд) ISOFIX</li>
-              <li>•Антиблокировочная система (ABS)</li>
-              <li>•Система стабилизации (ESP)</li>
-            </ul>
-            <br />
-            <br />
-            <ul>
-              <p>Обзор</p>
-              <li>•Противотуманные фары</li>
-              <li>•Датчик дождя</li>
-              <li>•Датчик света</li>
-              <li>•Электрообогрев боковых зеркал</li>
-            </ul>
-            <br />
-            <br />
-            <ul>
-              <p>Комфорт</p>
-              <li>•Климат-контроль 1-зонный</li>
-              <li>•Круиз-контроль</li>
-              <li>•Регулировка руля по высоте</li>
-              <li>•Регулировка руля по вылету</li>
-              <li>•Мультифункциональное рулевое колесо</li>
-              <li>•Бортовой компьютер</li>
-              <li>•Электропривод зеркал</li>
-              <li>•Охлаждаемый перчаточный ящик</li>
-              <li>•Электростеклоподъемники передние</li>
-              <li class="hide-li">•Усилитель руля</li>
-            </ul>
-            <div class="hide-text">
-              <br />
-              <br />
-              <ul>
-                <p>Элементы экстерьера</p>
-                <li>•Диски 16</li>
-              </ul>
-              <br />
-              <ul>
-                <p>Защита от угона</p>
-                <li>•Центральный замок</li>
-                <li>•Иммобилайзер</li>
-                <li>Мультимедиа</li>
-                <li>•Аудиосистема</li>
-                <li>•AUX</li>
-                <li>•Розетка 12V</li>
-              </ul>
-              <br />
-              <br />
-              <ul class="mb-5">
-                <p>Салон</p>
-                <li>•Ткань (Материал салона)</li>
-                <li>•Люк</li>
-                <li>•Отделка кожей рулевого колеса</li>
-                <li>•Отделка кожей рычага КПП</li>
-                <li>•Складывающееся заднее сиденье</li>
-                <li>•Функция складывания спинки сиденья пассажира</li>
-                <li>•Передний центральный подлокотник</li>
-                <li>•Третий задний подголовник</li>
-                <li>•Накладки на пороги</li>
-              </ul>
-            </div>
-            <button class="see-all" type="button">Показать все</button>
+            <div
+                v-for="(detail, key) in getConfiguration()"
+                :key="key"
+            >{{ detail }}</div>
           </div>
         </div>
       </div>
