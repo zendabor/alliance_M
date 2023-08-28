@@ -67,6 +67,23 @@ export default {
   methods: {
     getShortName() {
       return `${this.car.configuration.model.brand.name} ${this.car.configuration.model.name}`;
+    },
+    getPrice() {
+      let price = this.preparePrice(this.car.price);
+
+      return `${price} ₽`;
+    },
+    getMinPay() {
+      let price = this.preparePrice(this.car.price);
+      const month = 7 * 12;
+      const sum = this.car.price / month;
+
+      const fullSum = sum + 0.07 * sum + 0.01 * sum;
+
+      return `${this.preparePrice(fullSum.toFixed())} ₽ / мин. платеж`;
+    },
+    preparePrice(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
   }
 }
@@ -81,7 +98,7 @@ export default {
       <div class="car-info_content">
         <h4 class="car-info_name">{{ getShortName() }} <span class="car-info_year">{{ car.year }}</span>
         </h4>
-        <div class="car-info_price">{{ car.price }} <span class="car-info_min-price">{{ 20000 }}</span></div>
+        <div class="car-info_price">{{ getPrice() }} <span class="car-info_min-price">{{ getMinPay() }}</span></div>
         <ul class="car-info_characteristic">
           <li>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">

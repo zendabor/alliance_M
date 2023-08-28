@@ -19,16 +19,11 @@ export default {
         contact: contact,
       },
       cars: [],
-      params: {
-        brand: '',
-        model: '',
-        year: {},
-        mileage: {},
-        wheel_drive: '',
-        kpp: '',
-        fuel: '',
+      params: {},
+      page: {
+        current: 0,
+        last: 0,
       },
-      page: 0,
       key: 0,
     }
   },
@@ -73,10 +68,11 @@ export default {
 
       try {
         const response = await axios.get(`${API_URL}/api/car/list`, {params: this.params});
-        const { data: { data: list, current_page: page } } = response;
+        const { data: { data: list, current_page, last_page } } = response;
 
         this.cars = list;
-        this.page = page;
+        this.page.current = current_page;
+        this.page.last = last_page;
       } catch (e) {
         console.log(e)
       }
@@ -151,12 +147,13 @@ export default {
     },
     async getMoreCar() {
       try {
-        this.params.page = this.page + 1;
+        this.params.page = (this.page.current < this.page.last) ? this.page.current + 1 : this.page.current;
         const response = await axios.get(`${API_URL}/api/car/list`, {params: this.params});
-        const { data: { data: list, current_page: page }, } = response;
+        const { data: { data: list, current_page, last_page }, } = response;
 
         this.cars = [...this.cars, ...list];
-        this.page = page;
+        this.page.current = current_page;
+        this.page.last = last_page;
         this.key++;
       } catch (e) {
         console.log(e)
@@ -164,16 +161,21 @@ export default {
     },
     async clear() {
       try {
-        this.params.page = this.page = 1;
-        const response = await axios.get(`${API_URL}/api/car/list`, {params: {}});
-        const { data: { data: list, current_page: page }, } = response;
+        this.params = {};
+        this.params.page = this.page.current = 1;
+        const response = await axios.get(`${API_URL}/api/car/list`, {params: this.params});
+        const { data: { data: list, current_page, last_page }, } = response;
 
         this.cars = list;
-        this.page = page;
+        this.page.current = current_page;
+        this.page.last = last_page;
         this.key++;
       } catch (e) {
         console.log(e)
       }
+    },
+    isMorePages() {
+      return this.page.current !== this.page.last;
     }
   },
   mounted() {
@@ -206,11 +208,15 @@ export default {
             </ul>
           </div>
 
-          <FilterCars @get-cars="getCarList" @clear="clear"/>
+          <FilterCars @get-cars="getCarList" @clear="clear" :params="params"/>
 
         </div>
         <div class="watch">
-          <div class="watch-link" id="show-more">
+          <div
+              v-if="isMorePages()"
+              class="watch-link"
+              id="show-more"
+          >
             <button
                 type="button"
                 class="btn-watch"

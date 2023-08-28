@@ -46,6 +46,9 @@ export default {
       }
     }
   },
+  props: {
+    params: {}
+  },
   computed: {
     hasNew() {
       return false;
