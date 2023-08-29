@@ -1,18 +1,6 @@
 <script>
-import logo from '@img/logo.svg'
-import logoScroll from '@img/logo-scroll.svg'
-import phone from '@img/icons/phone.svg'
 
 export default {
-  data() {
-    return {
-      images: {
-        logo: logo,
-        logoScroll: logoScroll,
-        phone: phone,
-      }
-    }
-  }
 }
 </script>
 
@@ -21,19 +9,29 @@ export default {
     <div class="header_container">
       <div class="flex items-center">
         <div class="header_logo" data-da="header_container,1,992">
-          <router-link to="/" class="logo"><img :src="images.logo" alt="Logo"></router-link>
-          <router-link to="/" class="logo-scroll"><img :src="images.logoScroll" alt="Logo"></router-link>
+          <router-link to="/" class="logo">
+            <img src="src/assets/img/logo.svg" alt="Logo">
+          </router-link>
+          <router-link to="/" class="logo-scroll">
+            <img src="src/assets/img/logo-scroll.svg" alt="Logo">
+          </router-link>
         </div>
         <Navbar :className="'menu'"/>
       </div>
       <div class="header_contact" data-da="menu_body,4,992" >
         <div class="phone_1 phone">
           <p class="phone_text">Ростовское шоссе, 7</p>
-          <a href="tel:+786120054986" class="phone_number"><img :src="images.phone"><span>+7 (861) 205-49-86</span></a>
+          <a href="tel:+786120054986" class="phone_number">
+            <img src="src/assets/img/icons/phone.svg">
+            <span>+7 (861) 205-49-86</span>
+          </a>
         </div>
         <div class="phone_2 phone">
           <p class="phone_text">Ростовское шоссе, 17</p>
-          <a href="tel:+786120054986" class="phone_number"><img :src="images.phone"><span>+7 (861) 205-49-86</span></a>
+          <a href="tel:+786120054986" class="phone_number">
+            <img src="src/assets/img/icons/phone.svg">
+            <span>+7 (861) 205-49-86</span>
+          </a>
         </div>
       </div>
       <div class="menu_icon">

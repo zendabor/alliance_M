@@ -1,36 +1,42 @@
 <script>
-import jeep from '@img/jeep.png';
-import slide2 from '@img/slide-2.png';
-import slide3 from '@img/slide-3.png';
+import Splide from "@splidejs/splide";
 
 export default {
-  data() {
-    return {
-      images: {
-        jeep: jeep,
-        slide2: slide2,
-        slide3: slide3,
-      }
+  methods: {
+    initSlider() {
+      const options = {
+        type: "loop",
+        autoplay: true,
+        interval: 3000,
+        perPage: 1,
+        gap: "24px",
+      };
+      const splideIndex = new Splide("#homeSplide", options);
+
+      splideIndex.mount();
     }
+  },
+  mounted() {
+    this.initSlider();
   }
 }
 </script>
 
 <template>
-  <Splide class="splide" id="homeSplide" aria-label="Splide" :options="{ rewind: true }">
+  <section class="splide" id="homeSplide" aria-label="Splide">
     <div class="splide__arrows">
       <button type="button" aria-controls="splide01-track" class="splide__arrow homeNextSlide splide__arrow--prev splide_my-btn-prev"></button>
       <button class="splide__arrow splide__arrow--next homePrevSlide splide_my-btn-next "></button>
     </div>
     <div class="splide__track">
       <div class="splide__list">
-        <SplideSlide class="splide__slide">
+        <div class="splide__slide">
           <div class="slide_block">
             <div class="slide">
               <div class="car-img_block">
                 <picture>
-                  <source :srcset="images.jeep" type="image/webp">
-                  <img :src="images.jeep" alt="Jeep" class="car-img">
+                  <source srcset="src/assets/img/jeep.png" type="image/webp">
+                  <img src="src/assets/img/jeep.png" alt="Jeep" class="car-img">
                 </picture>
               </div>
               <div class="slide_container">
@@ -46,12 +52,12 @@ export default {
               </div>
             </div>
           </div>
-        </SplideSlide>
-        <SplideSlide class="splide__slide">
+        </div>
+        <div class="splide__slide">
           <div class="slide_block">
-            <!--                <div class="slide-2" style="background: url({{ url('/img/slide-2.png') }}) no-repeat center;">-->
-            <!--                <div class="slide-2" :style="{backgroundImage: `url(${images.slide2}) 'no-repeat' 'center;'`}">-->
-            <div class="slide-2" :style="{backgroundImage: `url(${images.slide2})`}">
+            <div
+                class="slide-2"
+                :style="{ 'background': 'url(src/assets/img/slide-2.png) no-repeat center' }">
               <div class="slide-2_container">
                 <div class="slide-2_texts full575">
                   <h1>акция</h1>
@@ -68,12 +74,13 @@ export default {
               </div>
             </div>
           </div>
-        </SplideSlide>
-        <SplideSlide class="splide__slide">
+        </div>
+        <div class="splide__slide">
           <div class="slide_block">
-            <!--                <div class="slide-3" style="background: url({{ url('/img/slide-3.png') }}) no-repeat center;">-->
-            <!--                <div class="slide-3" :style="{backgroundImage: `url(${images.slide3}) 'no-repeat' 'center;'`}">-->
-            <div class="slide-3" :style="{backgroundImage: `url(${images.slide3})`}">
+            <div
+                class="slide-3"
+                :style="{ 'background': `url(src/assets/img/slide-3.png) no-repeat center` }"
+            >
               <div class="slide-3_container">
                 <div class="slide-3_texts">
                   <h1>акция</h1>
@@ -88,12 +95,71 @@ export default {
               </div>
             </div>
           </div>
-        </SplideSlide>
+        </div>
       </div>
     </div>
-  </Splide>
+  </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+$primary_clr: #B40D16;
+$white: #fff;
 
+.splide_my-btn-prev {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  transition: .3s ease all;
+  background: #fff;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: 1rem;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.splide_my-btn-next {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  background: #fff;
+  transition: .3s ease all;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: .5rem;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.homeNextSlide {
+  left: -1.5rem;
+}
+
+.homePrevSlide {
+  right: -1.5rem;
+}
 </style>

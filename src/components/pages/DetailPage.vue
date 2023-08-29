@@ -3,11 +3,6 @@ import axios from "axios";
 import { API_URL } from "../../main";
 
 export default {
-  components: {},
-
-  // props: {
-  //   id: Number,
-  // },
   data() {
     return {
       car: {

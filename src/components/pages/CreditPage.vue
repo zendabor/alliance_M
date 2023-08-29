@@ -1,13 +1,4 @@
 <script>
-import doc from '@img/icons/doc.svg';
-import dist from '@img/icons/dist.svg';
-import kacko from '@img/icons/kacko.svg';
-import dnr_lnr from '@img/icons/dnr-lnr.svg';
-import valuta from '@img/icons/valuta.svg';
-import without_comissia from '@img/icons/without-comissia.svg';
-import russia from '@img/icons/russia.svg';
-import filter from '@img/icons/filter-filter.svg';
-import close from '@img/close.svg';
 import CarInfo from "../CarInfo.vue";
 import FilterCars from "../FilterCars.vue";
 import axios from "axios";
@@ -16,17 +7,6 @@ import { API_URL } from "../../main";
 export default {
   data() {
     return {
-      images: {
-        doc: doc,
-        dist: dist,
-        kacko: kacko,
-        dnr_lnr: dnr_lnr,
-        valuta: valuta,
-        without_comissia: without_comissia,
-        russia: russia,
-        filter: filter,
-        close: close,
-      },
       cars: [],
       params: {},
       page: {
@@ -219,33 +199,33 @@ export default {
       <div class="credit-grid">
         <ul class="row-1 ">
           <li>
-            <img :src="images.doc" alt="Document">
+            <img src="src/assets/img/icons/doc.svg" alt="Document">
             <p>Оформление<br>по 2 документам</p>
           </li>
           <li>
-            <img :src="images.dist" alt="Dist">
+            <img src="src/assets/img/icons/dist.svg" alt="Dist">
             <p>Дистанционная<br>подача</p>
           </li>
           <li>
-            <img :src="images.kacko" alt="KASKO">
+            <img src="src/assets/img/icons/kacko.svg" alt="KASKO">
             <p>Без оформления<br>КАСКО</p>
           </li>
           <li>
-            <img :src="images.dnr_lnr" alt="DNR & LNR">
+            <img src="src/assets/img/icons/dnr-lnr.svg" alt="DNR & LNR">
             <p>По паспорту<br>ДНР и ЛНР</p>
           </li>
         </ul>
         <ul class="row-2 ">
           <li>
-            <img :src="images.valuta" alt="Rubl">
+            <img src="src/assets/img/icons/valuta.svg" alt="Rubl">
             <p>Без первоначального взноса</p>
           </li>
           <li>
-            <img :src="images.without_comissia" alt="Без комиссий">
+            <img src="src/assets/img/icons/without-comissia.svg" alt="Без комиссий">
             <p>Досрочное погашение<br>без комиссий и штрафов</p>
           </li>
           <li>
-            <img :src="images.russia" alt="Russia">
+            <img src="src/assets/img/icons/russia.svg" alt="Russia">
             <p>Все регионы РФ<br>(в т.ч. Кавказ и Крым)</p>
           </li>
         </ul>
@@ -257,7 +237,7 @@ export default {
           </div>
           <div class="flex items-center">
             <router-link to="/" class="popup_btn filter-show">
-              <img :src="images.filter" alt="Filter">
+              <img src="src/assets/img/icons/filter-filter.svg" alt="Filter">
             </router-link>
           </div>
         </div>
@@ -289,7 +269,7 @@ export default {
       <div class="popup" id="popup">
         <div class="popup__body">
           <a href="#header" class="popup__close close-popup">
-            <img :src="images.close">
+            <img src="src/assets/img/close.svg">
           </a>
           <div class="popup__content"></div>
         </div>

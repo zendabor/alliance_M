@@ -1,12 +1,8 @@
 <script>
-import filter from '@img/icons/filter-filter.svg';
-import leftArrow from '@img/icons/arrows-directions-left.svg';
-import rightArrow from '@img/icons/arrows-directions-right.svg';
-import close from '@img/close.svg';
 import CarInfo from "../CarInfo.vue";
 import FilterCars from "../FilterCars.vue";
 import axios from "axios";
-import {API_URL} from "../../main";
+import { API_URL } from "../../main";
 
 export default {
   components: {
@@ -15,12 +11,6 @@ export default {
   },
   data() {
     return {
-      images: {
-        filter: filter,
-        leftArrow: leftArrow,
-        rightArrow: rightArrow,
-        close: close,
-      },
       pageName: 'Каталог',
       cars: [],
       params: {},
@@ -204,7 +194,9 @@ export default {
           <div class="flex items-center">
             <div id="select-catalog"></div>
           </div>
-          <a href="#popup" class="popup_btn popup-link"><img :src="images.filter" alt="Filter"></a>
+          <a href="#popup" class="popup_btn popup-link">
+            <img src="src/assets/img/icons/filter-filter.svg" alt="Filter">
+          </a>
         </div>
         <div class="cars_container">
           <div class="cars_buy car catalogCars">
@@ -238,7 +230,7 @@ export default {
         >
           <img
               v-if="number === 1"
-              :src="images.leftArrow"
+              src="src/assets/img/icons/arrows-directions-left.svg"
               alt="Left"
           />
           <span
@@ -248,7 +240,7 @@ export default {
           >{{ number }}</span>
           <img
               v-if="number === page.last"
-              :src="images.rightArrow"
+              src="src/assets/img/icons/arrows-directions-right.svg"
               alt="Right"
           />
         </div>
@@ -270,7 +262,7 @@ export default {
     <div class="popup" id="popup">
       <div class="popup__body">
         <a href="#header" class="popup__close close-popup">
-          <img :src="images.close">
+          <img src="src/assets/img/close.svg">
         </a>
         <div class="popup__content"></div>
       </div>

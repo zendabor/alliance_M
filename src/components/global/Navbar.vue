@@ -1,10 +1,6 @@
 <script setup>
-import { defineProps, ref, reactive } from 'vue';
-import phone from '@img/icons/phone.svg';
+import { defineProps } from 'vue';
 
-const images = reactive({
-    phone: phone
-});
 
 defineProps({
   className: String
@@ -13,7 +9,9 @@ defineProps({
 
 <template>
   <nav :class="className">
-    <a href="tel:+78612054986" class="phone_menu"><img :src="images.phone"></a>
+    <a href="tel:+78612054986" class="phone_menu">
+      <img src="src/assets/img/icons/phone.svg">
+    </a>
     <div class="menu_body">
       <ul class="menu_list">
         <li class="menu_item"><router-link to="/" class="menu_link"></router-link></li>

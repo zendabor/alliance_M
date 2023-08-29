@@ -1,20 +1,7 @@
 <script>
-import about from '@img/about.png';
-import mail from '@img/icons/mail.svg';
-import phone from '@img/icons/phone.svg';
-import card from '@img/card-with-red-envelope 1.png';
 
 export default {
-  data() {
-    return {
-      images: {
-        about: about,
-        mail: mail,
-        phone: phone,
-        card: card,
-      }
-    }
-  }
+
 }
 </script>
 
@@ -29,14 +16,14 @@ export default {
       <section class="about">
         <section class="about_header">
           <h1>о компании</h1>
-          <p>ООО “Альянс Моторс” работает на автомобильном рынке г. Краснодара<span>с 2010 г.</span></p>
+          <p>ООО “Альянс Моторс” работает на автомобильном рынке г. Краснодара<span> с 2010 г.</span></p>
         </section>
         <section class="about_grid">
           <ul class="about_grid-1">
             <li>
               <picture>
-                <source :srcset="images.about" type="image/webp">
-                <img :src="images.about" alt="About" />
+                <source srcset="src/assets/img/about.png" type="image/webp">
+                <img src="src/assets/img/about.png" alt="About" />
               </picture>
             </li>
             <li>
@@ -95,11 +82,11 @@ export default {
             <h3>Отдел продаж</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img :src="images.phone" />
+                <img src="src/assets/img/icons/phone.svg" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img :src="images.mail" alt="" />
+                <img src="src/assets/img/icons/mail.svg" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -112,11 +99,11 @@ export default {
             <h3 class="wrap-text">Отдел кредитования <br class="show767">и страхования</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img :src="images.phone" />
+                <img src="src/assets/img/icons/phone.svg" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img :src="images.mail" alt="" />
+                <img src="src/assets/img/icons/mail.svg" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -132,7 +119,7 @@ export default {
               <button type="button" class="primary-btn">Письмо директору</button>
             </div>
             <div class="writing_img">
-              <img :src="images.card">
+              <img src="src/assets/img/card-with-red-envelope 1.png">
             </div>
           </div>
         </section>

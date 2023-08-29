@@ -1,6 +1,4 @@
 <script>
-import contact from '@img/icons/contact.svg';
-import filter from '@img/icons/filter-filter.svg';
 import SplideSlider from "../SplideSlider.vue";
 import Benefits from "../Benefits.vue";
 import CarInfo from "../CarInfo.vue";
@@ -14,10 +12,6 @@ import {API_URL} from "../../main";
 export default {
   data() {
     return {
-      images: {
-        filter: filter,
-        contact: contact,
-      },
       cars: [],
       params: {},
       page: {
@@ -197,7 +191,7 @@ export default {
           </div>
           <div class="flex items-center">
             <router-link to="/" class="popup_btn filter-show">
-              <img :src="images.filter" alt="Filter">
+              <img src="src/assets/img/icons/contact.svg" alt="Filter">
             </router-link>
           </div>
         </div>
@@ -240,6 +234,200 @@ export default {
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.cars {
+  margin: 56px 0px 0px 0px;
+}
 
+.cars_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.car_list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.car_info {
+  border-radius: 20px;
+}
+
+.car-info {
+  background: #fff;
+  -webkit-transition: 0.3s ease background;
+  transition: 0.3s ease background;
+}
+
+.car-info:hover {
+  background: inherit;
+}
+
+.car-info:hover .car-info_tel {
+  background: inherit;
+}
+
+.car-info:hover .car-info_characteristic li svg path {
+  fill: #B40D16;
+}
+
+.car-info_container {
+  max-width: 282px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.car-info_img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+}
+
+.car-info_content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.car-info_name {
+  margin: 1rem 0px 6px 0px;
+  color: #0E0E0F;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.car-info_year {
+  color: #B3B3B3;
+}
+
+.car-info_price {
+  color: #B40D16;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.car-info_min-price {
+  color: #B3B3B3;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.car-info_characteristic {
+  margin: 2rem 0px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -webkit-column-gap: 32px;
+  -moz-column-gap: 32px;
+  column-gap: 32px;
+  row-gap: 12px;
+  white-space: nowrap;
+}
+
+.car-info_characteristic li {
+  font-size: 12px;
+  color: #0E0E0F;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.car-info_characteristic li svg {
+  position: relative;
+  top: 3px;
+  margin: 0px 8px 0px 0px;
+}
+
+.car-info_characteristic li svg path {
+  -webkit-transition: 0.3s ease fill;
+  transition: 0.3s ease fill;
+}
+
+.car-info_footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.car-info_tel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #F2F2F2;
+  margin: 0px 8px 0px 0px;
+  padding: 1rem;
+  -webkit-transition: 0.3s ease background;
+  transition: 0.3s ease background;
+}
+
+.btn-car-link {
+  width: 100%;
+}
+
+.btn-car {
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  padding: 15px 24px 16px;
+  width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #B40D16;
+  font-weight: 500;
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.btn-car:hover {
+  background: #DD1525;
+}
+
+.btn-car:active,
+.btn-car:focus {
+  background: #B40D16;
+}
+
+.btn-car:disabled {
+  background: #F4F6F8;
+  color: #8E8E8E;
+}
 </style>

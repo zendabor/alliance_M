@@ -1,18 +1,9 @@
-<script>
-import geo from '@img/icons/geo.svg';
-import mail from '@img/icons/mail.svg';
-import logo from '@img/logo.svg';
-import phone from '@img/icons/phone.svg';
+<script>;
 
 export default {
   data() {
     return {
-      images: {
-        geo: geo,
-        mail: mail,
-        logo: logo,
-        phone: phone,
-      }
+      className: 'footer-menu',
     }
   }
 }
@@ -29,15 +20,15 @@ export default {
           <h1 class="footer_title">Контакты</h1>
           <ul>
             <li>
-              <img :src="images.geo" alt="Geo">
+              <img src="src/assets/img/icons/geo.svg" alt="Geo">
               <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
             </li>
             <li>
-              <img :src="images.geo"  alt="Geo">
+              <img src="src/assets/img/icons/geo.svg"  alt="Geo">
               <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
             </li>
             <li>
-              <img :src="images.mail" alt="Mail">
+              <img src="src/assets/img/icons/mail.svg" alt="Mail">
               <p><a href="mailto:alliance.motors@bk.ru" class="m-0">alliance.motors@bk.ru</a></p>
             </li>
           </ul>
@@ -45,18 +36,26 @@ export default {
       </div>
       <div class="footer-navbar">
         <div class="footer_menubar">
-          <router-link to="/" class="footer_logo"><img :src="images.logo" alt="Logo"></router-link>
-          <Navbar :className="'footer-menu'"/>
+          <router-link to="/" class="footer_logo">
+            <img src="src/assets/img/logo.svg" alt="Logo">
+          </router-link>
+          <Navbar :className="className"/>
         </div>
 
         <div class="footer-contact">
           <div class="footer-phone_1 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 7</p>
-            <a href="tel:+786120054986" class="footer-phone_number"><img :src="images.phone"><span>+7 (861) 205-49-86</span></a>
+            <a href="tel:+786120054986" class="footer-phone_number">
+              <img src="src/assets/img/icons/phone.svg">
+              <span>+7 (861) 205-49-86</span>
+            </a>
           </div>
           <div class="footer-phone_2 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 17</p>
-            <a href="tel:+786120054986" class="footer-phone_number"><img :src="images.phone"><span>+7 (861) 205-49-86</span></a>
+            <a href="tel:+786120054986" class="footer-phone_number">
+              <img src="src/assets/img/icons/phone.svg">
+              <span>+7 (861) 205-49-86</span>
+            </a>
           </div>
         </div>
       </div>

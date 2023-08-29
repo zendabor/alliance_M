@@ -1,16 +1,6 @@
 <script>
-import filter from '@img/icons/filter-filter.svg';
-import contact from '@img/icons/contact.svg';
 
 export default {
-  data() {
-    return {
-      images: {
-        filter: filter,
-        contact: contact,
-      },
-    }
-  },
   props: {
     car: {
       id: 0,
@@ -69,7 +59,7 @@ export default {
       return `${this.car.configuration.model.brand.name} ${this.car.configuration.model.name}`;
     },
     getPrice() {
-      let price = this.preparePrice(this.car.price);
+      let price = this.prepareNum(this.car.price);
 
       return `${price} ₽`;
     },
@@ -79,10 +69,19 @@ export default {
 
       const fullSum = sum + 0.07 * sum + 0.01 * sum;
 
-      return `${this.preparePrice(fullSum.toFixed())} ₽ / мин. платеж`;
+      return `${this.prepareNum(fullSum.toFixed())} ₽ / мин. платеж`;
     },
-    preparePrice(num) {
+    getMileage() {
+      return `${this.prepareNum(this.car.vehicle_mileage)} км`;
+    },
+    prepareNum(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    },
+    getEngineVolume() {
+      const power = this.car.configuration.engine.engine_power;
+      const volume = this.car.configuration.engine.engine_volume;
+
+      return `${(volume / 1000).toFixed(1)} л (${power})`;
     },
   }
 }
@@ -103,13 +102,13 @@ export default {
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14.2844 10.6452H15C14.8834 11.8765 14.4812 13.0605 13.8276 14.0962C12.4574 12.7045 10.6931 11.8035 8.79314 11.5247L11.0776 8.02464L11.0775 8.02475C11.2315 7.7927 11.2543 7.49317 11.1372 7.23901C11.0202 6.98487 10.7811 6.8147 10.5101 6.7926C10.2391 6.7705 9.97727 6.89977 9.82323 7.13182L7.06902 11.4355C5.95914 11.4904 4.86888 11.7583 3.8534 12.2257C2.86682 12.6807 1.96628 13.3141 1.19398 14.0962C0.532649 13.0627 0.123083 11.8786 0 10.6451H0.715555C0.985069 10.6451 1.23402 10.4963 1.36877 10.2546C1.50352 10.0129 1.50352 9.71502 1.36877 9.47332C1.23401 9.23162 0.985052 9.08276 0.715555 9.08276H0C0.144715 7.55579 0.723785 6.10785 1.66384 4.92202L2.17244 5.44431V5.44442C2.3138 5.59161 2.50647 5.67367 2.70691 5.67211C2.90813 5.67267 3.10121 5.59004 3.24322 5.44252C3.38534 5.29488 3.46457 5.09466 3.46338 4.88625C3.46229 4.67785 3.38079 4.47864 3.23705 4.33279L2.75863 3.81935C3.3194 3.34246 3.94363 2.95156 4.61199 2.65874C5.30028 2.36401 6.02623 2.17457 6.76711 2.09619V2.83719C6.76711 3.11633 6.91085 3.37429 7.14431 3.51385C7.37767 3.65342 7.66516 3.65342 7.89863 3.51385C8.132 3.37428 8.27572 3.11631 8.27572 2.83719V2.09619C9.74959 2.24742 11.1475 2.84695 12.293 3.81935L11.7671 4.34175C11.6231 4.48793 11.5415 4.68783 11.5407 4.89667C11.5399 5.10563 11.6199 5.3062 11.7629 5.45348C11.9059 5.6009 12.0999 5.68273 12.3016 5.68094C12.5003 5.67993 12.6906 5.59821 12.8318 5.45325L13.336 4.93097C14.2761 6.11668 14.8551 7.56473 14.9999 9.0917H14.2843C14.0148 9.0917 13.7658 9.24069 13.6311 9.48238C13.4964 9.72407 13.4963 10.0219 13.6311 10.2636C13.7659 10.5053 14.0148 10.6542 14.2843 10.6542L14.2844 10.6452Z" fill="#E7E7E7"/>
             </svg>
-            {{ car.vehicle_mileage }}
+            {{ getMileage() }}
           </li>
           <li>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.4348 1.31017C8.41323 1.26983 8.38171 1.23292 8.34218 1.20128C8.25731 1.13234 8.13757 1.09415 8.01305 1.0963C7.88078 1.09386 7.7529 1.13175 7.6581 1.20128C7.61676 1.23185 7.58512 1.26915 7.56548 1.31017C6.74758 2.07236 0.693296 7.92507 2.25675 11.9618C2.50334 12.5697 2.92171 13.1297 3.48311 13.6031C4.0445 14.0766 4.73529 14.452 5.50776 14.7034C6.25619 14.9599 7.06778 15.0936 7.88942 15.0962H8.01807H8.01794C8.97718 15.0766 9.92011 14.9043 10.7854 14.5906C11.4914 14.3302 12.1185 13.9622 12.6276 13.5098C13.1365 13.0574 13.5164 12.5304 13.7432 11.9618C15.3068 7.92532 9.25257 2.07641 8.43447 1.31017H8.4348ZM9.92646 10.9623C9.8124 11.331 9.53467 11.659 9.13954 11.8917C8.81868 12.0916 8.41578 12.2008 8.00012 12.2008C7.58445 12.2008 7.18155 12.0916 6.8607 11.8917C6.46583 11.6582 6.18667 11.3307 6.06862 10.9623C5.56962 9.4418 7.21568 7.18633 7.99754 6.22585C8.78459 7.18628 10.4306 9.43805 9.92646 10.9623Z" fill="#E7E7E7"/>
             </svg>
-            {{ car.configuration.engine.engine_volume }}
+            {{ car.configuration.engine.type }}
           </li>
           <li>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +121,7 @@ export default {
                 </clipPath>
               </defs>
             </svg>
-            {{ car.configuration.engine.engine_power }}
+            {{ getEngineVolume() }}
           </li>
           <li>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +132,7 @@ export default {
         </ul>
         <footer class="car-info_footer">
           <a href="tel:+786120054986" class="car-info_tel">
-            <img :src="images.contact" alt="Contact">
+            <img src="src/assets/img/icons/contact.svg" alt="Contact">
           </a>
           <a href="/" class="btn-car-link">
             <button type="button" class="btn-car">Оставить заявку</button>
