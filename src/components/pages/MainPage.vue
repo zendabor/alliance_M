@@ -191,7 +191,7 @@ export default {
           </div>
           <div class="flex items-center">
             <router-link to="/" class="popup_btn filter-show">
-              <img src="src/assets/img/icons/contact.svg" alt="Filter">
+              <img src="@img/icons/contact.svg" alt="Filter">
             </router-link>
           </div>
         </div>

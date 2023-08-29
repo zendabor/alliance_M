@@ -35,8 +35,8 @@ export default {
             <div class="slide">
               <div class="car-img_block">
                 <picture>
-                  <source srcset="src/assets/img/jeep.png" type="image/webp">
-                  <img src="src/assets/img/jeep.png" alt="Jeep" class="car-img">
+                  <source srcset="@img/jeep.png" type="image/webp">
+                  <img src="@img/jeep.png" alt="Jeep" class="car-img">
                 </picture>
               </div>
               <div class="slide_container">

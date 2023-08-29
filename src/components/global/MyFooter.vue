@@ -20,15 +20,15 @@ export default {
           <h1 class="footer_title">Контакты</h1>
           <ul>
             <li>
-              <img src="src/assets/img/icons/geo.svg" alt="Geo">
+              <img src="@img/icons/geo.svg" alt="Geo">
               <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
             </li>
             <li>
-              <img src="src/assets/img/icons/geo.svg"  alt="Geo">
+              <img src="@img/icons/geo.svg"  alt="Geo">
               <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
             </li>
             <li>
-              <img src="src/assets/img/icons/mail.svg" alt="Mail">
+              <img src="@img/icons/mail.svg" alt="Mail">
               <p><a href="mailto:alliance.motors@bk.ru" class="m-0">alliance.motors@bk.ru</a></p>
             </li>
           </ul>
@@ -37,7 +37,7 @@ export default {
       <div class="footer-navbar">
         <div class="footer_menubar">
           <router-link to="/" class="footer_logo">
-            <img src="src/assets/img/logo.svg" alt="Logo">
+            <img src="@img/logo.svg" alt="Logo">
           </router-link>
           <Navbar :className="className"/>
         </div>
@@ -46,14 +46,14 @@ export default {
           <div class="footer-phone_1 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 7</p>
             <a href="tel:+786120054986" class="footer-phone_number">
-              <img src="src/assets/img/icons/phone.svg">
+              <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>
           </div>
           <div class="footer-phone_2 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 17</p>
             <a href="tel:+786120054986" class="footer-phone_number">
-              <img src="src/assets/img/icons/phone.svg">
+              <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>
           </div>

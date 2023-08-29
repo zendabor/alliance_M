@@ -199,33 +199,33 @@ export default {
       <div class="credit-grid">
         <ul class="row-1 ">
           <li>
-            <img src="src/assets/img/icons/doc.svg" alt="Document">
+            <img src="@img/icons/doc.svg" alt="Document">
             <p>Оформление<br>по 2 документам</p>
           </li>
           <li>
-            <img src="src/assets/img/icons/dist.svg" alt="Dist">
+            <img src="@img/icons/dist.svg" alt="Dist">
             <p>Дистанционная<br>подача</p>
           </li>
           <li>
-            <img src="src/assets/img/icons/kacko.svg" alt="KASKO">
+            <img src="@img/icons/kacko.svg" alt="KASKO">
             <p>Без оформления<br>КАСКО</p>
           </li>
           <li>
-            <img src="src/assets/img/icons/dnr-lnr.svg" alt="DNR & LNR">
+            <img src="@img/icons/dnr-lnr.svg" alt="DNR & LNR">
             <p>По паспорту<br>ДНР и ЛНР</p>
           </li>
         </ul>
         <ul class="row-2 ">
           <li>
-            <img src="src/assets/img/icons/valuta.svg" alt="Rubl">
+            <img src="@img/icons/valuta.svg" alt="Rubl">
             <p>Без первоначального взноса</p>
           </li>
           <li>
-            <img src="src/assets/img/icons/without-comissia.svg" alt="Без комиссий">
+            <img src="@img/icons/without-comissia.svg" alt="Без комиссий">
             <p>Досрочное погашение<br>без комиссий и штрафов</p>
           </li>
           <li>
-            <img src="src/assets/img/icons/russia.svg" alt="Russia">
+            <img src="@img/icons/russia.svg" alt="Russia">
             <p>Все регионы РФ<br>(в т.ч. Кавказ и Крым)</p>
           </li>
         </ul>
@@ -237,7 +237,7 @@ export default {
           </div>
           <div class="flex items-center">
             <router-link to="/" class="popup_btn filter-show">
-              <img src="src/assets/img/icons/filter-filter.svg" alt="Filter">
+              <img src="@img/icons/filter-filter.svg" alt="Filter">
             </router-link>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default {
       <div class="popup" id="popup">
         <div class="popup__body">
           <a href="#header" class="popup__close close-popup">
-            <img src="src/assets/img/close.svg">
+            <img src="@img/close.svg">
           </a>
           <div class="popup__content"></div>
         </div>

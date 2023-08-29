@@ -15,15 +15,15 @@ export default {
               <h1 class="footer_title map-contact_title">Контакты</h1>
               <ul>
                 <li>
-                  <img src="src/assets/img/icons/geo.svg" alt="Geo">
+                  <img src="@img/icons/geo.svg" alt="Geo">
                   <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
                 </li>
                 <li>
-                  <img src="src/assets/img/icons/geo.svg" alt="Geo">
+                  <img src="@img/icons/geo.svg" alt="Geo">
                   <p>Краснодар, ул. Ростовское шоссе, 7 <br><a href="tel:+89180259393">8 (918) 025-93-93</a></p>
                 </li>
                 <li>
-                  <img src="src/assets/img/icons/mail.svg" alt="Mail">
+                  <img src="@img/icons/mail.svg" alt="Mail">
                   <p><a href="mailto:alliance.motors@bk.ru" class="m-0">alliance.motors@bk.ru</a></p>
                 </li>
               </ul>
@@ -55,28 +55,28 @@ export default {
       <div class="gallery">
         <ul class="gallery_container">
           <picture>
-            <source srcset="src/assets/img/salon/salon-1.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-1.png" alt="salon-1" class="salon-1">
+            <source srcset="@img/salon/salon-1.png" type="image/webp">
+            <img src="@img/salon/salon-1.png" alt="salon-1" class="salon-1">
           </picture>
           <picture>
-            <source srcset="src/assets/img/salon/salon-2.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-2.png" alt="salon-2" class="salon-2">
+            <source srcset="@img/salon/salon-2.png" type="image/webp">
+            <img src="@img/salon/salon-2.png" alt="salon-2" class="salon-2">
           </picture>
           <picture>
-            <source srcset="src/assets/img/salon/salon-3.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-3.png" alt="salon-3" class="salon-3">
+            <source srcset="@img/salon/salon-3.png" type="image/webp">
+            <img src="@img/salon/salon-3.png" alt="salon-3" class="salon-3">
           </picture>
           <picture>
-            <source srcset="src/assets/img/salon/salon-4.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-4.png" alt="salon-4" class="salon-4">
+            <source srcset="@img/salon/salon-4.png" type="image/webp">
+            <img src="@img/salon/salon-4.png" alt="salon-4" class="salon-4">
           </picture>
           <picture>
-            <source srcset="src/assets/img/salon/salon-5.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-5.png" alt="salon-5" class="salon-5">
+            <source srcset="@img/salon/salon-5.png" type="image/webp">
+            <img src="@img/salon/salon-5.png" alt="salon-5" class="salon-5">
           </picture>
           <picture>
-            <source srcset="src/assets/img/salon/salon-6.png" type="image/webp">
-            <img src="src/assets/img/salon/salon-6.png" alt="salon-6" class="salon-6">
+            <source srcset="@img/salon/salon-6.png" type="image/webp">
+            <img src="@img/salon/salon-6.png" alt="salon-6" class="salon-6">
           </picture>
         </ul>
       </div>

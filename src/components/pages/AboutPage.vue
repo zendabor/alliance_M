@@ -22,8 +22,8 @@ export default {
           <ul class="about_grid-1">
             <li>
               <picture>
-                <source srcset="src/assets/img/about.png" type="image/webp">
-                <img src="src/assets/img/about.png" alt="About" />
+                <source srcset="@img/about.png" type="image/webp">
+                <img src="@img/about.png" alt="About" />
               </picture>
             </li>
             <li>
@@ -82,11 +82,11 @@ export default {
             <h3>Отдел продаж</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img src="src/assets/img/icons/phone.svg" />
+                <img src="@img/icons/phone.svg" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img src="src/assets/img/icons/mail.svg" alt="" />
+                <img src="@img/icons/mail.svg" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -99,11 +99,11 @@ export default {
             <h3 class="wrap-text">Отдел кредитования <br class="show767">и страхования</h3>
             <nav class="sales_nav">
               <li class="flex items-center">
-                <img src="src/assets/img/icons/phone.svg" />
+                <img src="@img/icons/phone.svg" />
                 <a href="tel:+89180259393">8 (918) 025-93-93</a>
               </li>
               <li class="flex items-center">
-                <img src="src/assets/img/icons/mail.svg" alt="" />
+                <img src="@img/icons/mail.svg" alt="" />
                 <a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a>
               </li>
             </nav>
@@ -119,7 +119,7 @@ export default {
               <button type="button" class="primary-btn">Письмо директору</button>
             </div>
             <div class="writing_img">
-              <img src="src/assets/img/card-with-red-envelope 1.png">
+              <img src="@img/card-with-red-envelope 1.png">
             </div>
           </div>
         </section>

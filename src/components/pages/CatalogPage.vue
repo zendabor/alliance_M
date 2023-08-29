@@ -195,7 +195,7 @@ export default {
             <div id="select-catalog"></div>
           </div>
           <a href="#popup" class="popup_btn popup-link">
-            <img src="src/assets/img/icons/filter-filter.svg" alt="Filter">
+            <img src="@img/icons/filter-filter.svg" alt="Filter">
           </a>
         </div>
         <div class="cars_container">
@@ -230,7 +230,7 @@ export default {
         >
           <img
               v-if="number === 1"
-              src="src/assets/img/icons/arrows-directions-left.svg"
+              src="@img/icons/arrows-directions-left.svg"
               alt="Left"
           />
           <span
@@ -240,7 +240,7 @@ export default {
           >{{ number }}</span>
           <img
               v-if="number === page.last"
-              src="src/assets/img/icons/arrows-directions-right.svg"
+              src="@img/icons/arrows-directions-right.svg"
               alt="Right"
           />
         </div>
@@ -262,7 +262,7 @@ export default {
     <div class="popup" id="popup">
       <div class="popup__body">
         <a href="#header" class="popup__close close-popup">
-          <img src="src/assets/img/close.svg">
+          <img src="@img/close.svg">
         </a>
         <div class="popup__content"></div>
       </div>
