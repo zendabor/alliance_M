@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import { API_URL } from "../../main";
+import Splide from "@splidejs/splide";
 
 export default {
   data() {
@@ -93,10 +94,25 @@ export default {
           .replace(/"/g, "");
 
       return decode.split(',');
-    }
+    },
+    initSlider() {
+      const options = {
+        type: "loop",
+        padding: window.innerWidth <= 575 ? "12px" : window.innerWidth >= 575 ? "24px" : "12px",
+        autoplay: true,
+        speed: 1000,
+        interval: 3000,
+        perPage: window.innerWidth >= 1023 ? 3 : window.innerWidth >= 767 ? 2 : window.innerWidth >= 574 ? 1 : 1,
+        perMove: 1,
+      };
+      const splide = new Splide("#detailSplite", options);
+
+      splide.mount();
+    },
   },
   mounted() {
     this.getCar();
+    this.initSlider();
   }
 }
 </script>
@@ -134,8 +150,14 @@ export default {
 
   <section class="splide" id="detailSplite" style="background: #f2f2f2" role="group" aria-label="Splide">
     <div class="splide__arrows wrapper pagination-wrapper">
-      <button type="button" aria-controls="splide01-track" class="splide__arrow splide__arrow--prev splide_my-btn-prev"></button>
-      <button class="splide__arrow splide__arrow--next splide_my-btn-next"></button>
+      <button
+          type="button"
+          aria-controls="splide01-track"
+          class="splide__arrow splide__arrow--prev splide_my-btn-prev"
+      ></button>
+      <button
+          class="splide__arrow splide__arrow--next splide_my-btn-next"
+      ></button>
     </div>
     <div class="splide__track">
       <ul class="splide__list">
@@ -144,7 +166,11 @@ export default {
             v-for="picture in car.pictures"
             :key="picture.id"
         >
-          <a href="#car1" class="popup-link" :data-src="picture.src">
+          <a
+              href="#car1"
+              class="popup-link"
+              :data-src="picture.src"
+          >
             <img
                 class="splide-img"
                 :src="picture.src"
@@ -207,30 +233,30 @@ export default {
           <div class="detail-akciya">
             <h1>акции</h1>
             <ul>
-              <li><img src="../../assets/img/icons/gift-1.svg" /><p>Масляный сервис бесплатно</p></li>
-              <li><img src="../../assets/img/icons/gift-2.svg" /><p>ОСАГО в подарок</p></li>
+              <li><img src="@img/icons/gift-1.svg" /><p>Масляный сервис бесплатно</p></li>
+              <li><img src="@img/icons/gift-2.svg" /><p>ОСАГО в подарок</p></li>
             </ul>
           </div>
           <div class="detail-benefits">
             <h1>Преимущества</h1>
             <div class="credit-grid detail-grid">
               <ul class="row-1 detail-row-1">
-                <li><img src="../../assets/img/icons/doc.svg" alt="Document" /><p>Оформление<br />по 2 документам</p></li>
-                <li><img src="../../assets/img/icons/valuta.svg" alt="Rubl" /><p>Без первоначального взноса</p></li>
-                <li><img src="../../assets/img/icons/kacko.svg" alt="KASKO" /><p>Без оформления<br />КАСКО</p></li>
-                <li><img src="../../assets/img/icons/russia.svg" alt="Russia" /><p>Все регионы РФ<br />(в т.ч. Кавказ и Крым)</p></li>
+                <li><img src="@img/icons/doc.svg" alt="Document" /><p>Оформление<br />по 2 документам</p></li>
+                <li><img src="@img/icons/valuta.svg" alt="Rubl" /><p>Без первоначального взноса</p></li>
+                <li><img src="@img/icons/kacko.svg" alt="KASKO" /><p>Без оформления<br />КАСКО</p></li>
+                <li><img src="@img/icons/russia.svg" alt="Russia" /><p>Все регионы РФ<br />(в т.ч. Кавказ и Крым)</p></li>
               </ul>
               <li class="without-comissia flex items-center">
-                <img src="../../assets/img/icons/without-comissia.svg" alt="Без комиссий"/>
+                <img src="@img/icons/without-comissia.svg" alt="Без комиссий"/>
                 <p>Досрочное погашение без комиссий и штрафов</p>
               </li>
               <ul class="row-2 detail-row-2">
                 <li>
-                  <img src="../../assets/img/icons/dist.svg" alt="Dist" />
+                  <img src="@img/icons/dist.svg" alt="Dist" />
                   <p>Дистанционная<br />подача</p>
                 </li>
                 <li>
-                  <img src="../../assets/img/icons/dnr-lnr.svg" alt="DNR & LNR" />
+                  <img src="@img/icons/dnr-lnr.svg" alt="DNR & LNR" />
                   <p>По паспорту<br />ДНР и ЛНР</p>
                 </li>
               </ul>
@@ -281,7 +307,7 @@ export default {
                 </li>
               </ul>
             </div>
-            <div class="detail-logo"><img src="../../assets/img/logo.svg" /></div>
+            <div class="detail-logo"><img src="@img/logo.svg" /></div>
           </div>
           <div class="detail-complectation">
             <h1>Комплектация</h1>
@@ -297,19 +323,19 @@ export default {
           <ul class="benefits_body">
             <li class="benefits_item">
               <span class="benefits_title">Автокредит</span>
-              <img src="../../assets/img/benefit_1.svg" class="benefits_figure-1" />
+              <img src="@img/benefit_1.svg" class="benefits_figure-1" />
             </li>
             <li class="benefits_item">
               <span class="benefits_title">пРОДАЖА</span>
-              <img src="../../assets/img/benefit_2.svg" class="benefits_figure-2" />
+              <img src="@img/benefit_2.svg" class="benefits_figure-2" />
             </li>
             <li class="benefits_item">
               <span class="benefits_title">КОМИССИЯ</span>
-              <img src="../../assets/img/benefit_3.svg" class="benefits_figure-3" />
+              <img src="@img/benefit_3.svg" class="benefits_figure-3" />
             </li>
             <li class="benefits_item">
               <span class="benefits_title">трейд-ин</span>
-              <img src="../../assets/img/benefit_4.svg" class="benefits_figure-4" />
+              <img src="@img/benefit_4.svg" class="benefits_figure-4" />
             </li>
           </ul>
         </div>
@@ -320,12 +346,200 @@ export default {
   <div class="popup" id="car1">
     <div class="popup__body">
       <div class="popup__content popup-car-content">
-        <img src="../../assets/img/big-car.png" alt="CAR" class="popup-car" />
+        <img src="@img/big-car.png" alt="CAR" class="popup-car" />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+$primary_clr: #B40D16;
+$white: #fff;
 
+.splide {
+  margin-top: -20px;
+}
+
+.detail-product {
+  margin: 56px 0px 0px 0px;
+
+  @media (max-width: 767.98px) {
+    margin: 2rem 0px 0 0px;
+  }
+
+  &_container {}
+
+  &_title {
+    color: #0E0E0F;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    text-transform: uppercase;
+
+    @media (max-width: 574.98px) {
+      font-size: 20px;
+    }
+  }
+
+  &_btn-text {
+    color: #FFF;
+    text-align: center;
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  &_subtitle {
+    margin: 1rem 0;
+    color: #0E0E0F;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 123%;
+
+    span {
+      color: #8E8E8E;
+    }
+  }
+}
+
+.splide__pagination__page {
+  display: none;
+}
+
+.splide-li {
+  margin: 0px 0px 0px 24px;
+  max-width: 376px;
+  @media (max-width: 574.98px){
+    margin: 0px 0px 0px 12px;
+  }
+}
+
+.splide-img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 32px;
+  height: 264px;
+
+  @media (max-width: 460px) {
+    height: 100%;
+  }
+
+  @media (max-width: 574.98px) {
+    border-radius: 16px;
+  }
+  @media (max-width: 340px){
+    width: 288px;
+  }
+}
+
+.splide_my-btn-prev {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  transition: .3s ease all;
+  background: #fff;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: 1rem;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.splide_my-btn-next {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  background: #fff;
+  transition: .3s ease all;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: .5rem;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.splide_my-btn-prev {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  transition: .3s ease all;
+  background: #fff;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: 1rem;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.splide_my-btn-next {
+  opacity: 1;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid $white;
+  background: #fff;
+  transition: .3s ease all;
+
+  &::after {
+    content: '';
+    border: solid $primary_clr;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: .5rem;
+    position: absolute;
+    left: .5rem;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.homeNextSlide {
+  left: -1.5rem;
+}
+
+.homePrevSlide {
+  right: -1.5rem;
+}
 </style>
