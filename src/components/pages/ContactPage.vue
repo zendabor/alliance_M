@@ -1,7 +1,49 @@
 <script>
 
-export default {
+import axios from "axios";
+import {API_URL} from "../../main";
 
+export default {
+  data() {
+    return {
+      settings: [
+        {
+          id: 0,
+          description: "",
+          value: "",
+          extra: '',
+          name: '',
+          active: false,
+        }
+      ],
+      pictures: [],
+    }
+  },
+  methods: {
+    async getAbout() {
+      try {
+        const response = await axios.get(`${API_URL}/api/settings/about`);
+        const { data: { data: list } } = response;
+
+        this.settings = list;
+      } catch (e) {
+        console.log('ABOUT', e);
+      }
+    },
+    async getPictures() {
+      try {
+        const response = await axios.get(`${API_URL}/api/contacts/photo`);
+        const { data: { data: list } } = response;
+        this.pictures = list;
+      } catch(e) {
+        console.log(e);
+      }
+    }
+  },
+  mounted() {
+    this.getAbout();
+    this.getPictures();
+  }
 }
 </script>
 
@@ -37,46 +79,18 @@ export default {
       <div class="counter">
         <div class="counter_container">
           <ul class="counter_row">
-            <li>
-              <span>23+</span>
-              <p>Лет на рынке</p>
-            </li>
-            <li>
-              <span>1000+</span>
-              <p>Машин отличного качества</p>
-            </li>
-            <li>
-              <span>2000+</span>
-              <p>Довольных клиентов за 2022 год</p>
+            <li v-for="achievement in settings">
+              <span>{{ achievement.value }}</span>
+              <p>{{ achievement.extra }}</p>
             </li>
           </ul>
         </div>
       </div>
       <div class="gallery">
         <ul class="gallery_container">
-          <picture>
-            <source srcset="@img/salon/salon-1.png" type="image/webp">
-            <img src="@img/salon/salon-1.png" alt="salon-1" class="salon-1">
-          </picture>
-          <picture>
-            <source srcset="@img/salon/salon-2.png" type="image/webp">
-            <img src="@img/salon/salon-2.png" alt="salon-2" class="salon-2">
-          </picture>
-          <picture>
-            <source srcset="@img/salon/salon-3.png" type="image/webp">
-            <img src="@img/salon/salon-3.png" alt="salon-3" class="salon-3">
-          </picture>
-          <picture>
-            <source srcset="@img/salon/salon-4.png" type="image/webp">
-            <img src="@img/salon/salon-4.png" alt="salon-4" class="salon-4">
-          </picture>
-          <picture>
-            <source srcset="@img/salon/salon-5.png" type="image/webp">
-            <img src="@img/salon/salon-5.png" alt="salon-5" class="salon-5">
-          </picture>
-          <picture>
-            <source srcset="@img/salon/salon-6.png" type="image/webp">
-            <img src="@img/salon/salon-6.png" alt="salon-6" class="salon-6">
+          <picture v-for="pic in pictures">
+            <source :srcset="pic.src" type="image/webp">
+            <img :src="pic.src" alt="salon-1" class="salon-1">
           </picture>
         </ul>
       </div>

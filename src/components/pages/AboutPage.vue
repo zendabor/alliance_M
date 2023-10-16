@@ -1,7 +1,114 @@
 <script>
+import axios from "axios";
+import { API_URL } from "../../main";
 
 export default {
+  data() {
+    return {
+      persons: {
+        sale: {
+          id: 0,
+          name: '',
+          surname: '',
+          job: '',
+          department: '',
+          attachment: {
+            id: 0,
+            name: '',
+            origin_name: '',
+            url: '',
+          }
+        },
+        credit: {
+          id: 0,
+          name: '',
+          surname: '',
+          job: '',
+          department: '',
+          attachment: {
+            id: 0,
+            name: '',
+            origin_name: '',
+            url: '',
+          }
+        }
+      },
+      vacancies: [
+        {
+          id: 0,
+          title: '',
+          description: '',
+          requirements: '',
+          conditions: '',
+          min: '',
+          max: '',
+        }
+      ],
+      settings: [
+        {
+          id: 0,
+          description: '',
+          value: '',
+          extra: '',
+          name: '',
+          active: false,
+        }
+      ],
+      active: false,
+    }
+  },
+  methods: {
+    async getSalePersons() {
+      try {
+        const params = {};
+        params.department = 1;
+        const response = await axios.get(`${API_URL}/api/persons`, {params});
+        const { data: { data: list } } = response;
 
+        this.persons.sale = list;
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async getCreditPersons() {
+      try {
+        const params = {};
+        params.department = 2;
+        const response = await axios.get(`${API_URL}/api/persons`, {params});
+        const { data: { data: list } } = response;
+
+        this.persons.credit = list;
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async getVacancies() {
+      try {
+        const response = await axios.get(`${API_URL}/api/vacancies`);
+        const { data } = response;
+
+        this.vacancies = data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getAbout() {
+      try {
+        const response = await axios.get(`${API_URL}/api/settings/about`);
+        const { data: { data: list } } = response;
+
+        this.settings = list;
+      } catch (e) {
+        console.log('ABOUT', e);
+      }
+    }
+  },
+  mounted() {
+    this.getSalePersons();
+    this.getCreditPersons();
+    this.getVacancies();
+    this.getAbout();
+  }
 }
 </script>
 
@@ -62,17 +169,9 @@ export default {
         <div class="counter about-counter">
           <div class="counter_container">
             <ul class="counter_row">
-              <li>
-                <span>23+</span>
-                <p>Лет на рынке</p>
-              </li>
-              <li>
-                <span>1000+</span>
-                <p>Машин отличного качества</p>
-              </li>
-              <li>
-                <span>2000+</span>
-                <p>Довольных клиентов за 2022 год</p>
+              <li v-for="achievement in settings">
+                <span>{{ achievement.value }}</span>
+                <p>{{ achievement.extra }}</p>
               </li>
             </ul>
           </div>
@@ -91,7 +190,28 @@ export default {
               </li>
             </nav>
           </div>
-          <div class="sales_person"></div>
+          <div
+              v-if="Object.keys(persons.sale).length"
+              class="sales_person"
+          >
+            <ul class="sales_grid">
+              <li
+                  v-for="person in persons.sale"
+                  :key="person.id"
+              >
+                <span v-if="person.attachment">
+                  <img
+                      v-if="person.attachment"
+                      :src="person.attachment.url"
+                      :alt="person.attachment.origin_name"
+                  >
+                  <h4>{{ person.name }} {{ person.surname }}</h4>
+                  <p>{{ person.job }}</p>
+                </span>
+              </li>
+            </ul>
+
+          </div>
           <div class="morePerson">Показать ещё</div>
         </section>
         <section class="about_sales sales">
@@ -108,7 +228,27 @@ export default {
               </li>
             </nav>
           </div>
-          <div class="sales_person2"></div>
+          <div
+              v-if="Object.keys(persons.credit).length"
+              class="sales_person2"
+          >
+            <ul class="sales_grid">
+              <li
+                  v-for="person in persons.credit"
+                  :key="person.id"
+              >
+                <span v-if="person.attachment">
+                  <img
+                      v-if="person.attachment"
+                      :src="person.attachment.url"
+                      :alt="person.attachment.origin_name"
+                  >
+                  <h4>{{ person.name }} {{ person.surname }}</h4>
+                  <p>{{ person.job }}</p>
+                </span>
+              </li>
+            </ul>
+          </div>
           <div class="morePerson2">Показать ещё</div>
         </section>
         <section class="about_writing writing hidePerson2">
@@ -119,14 +259,54 @@ export default {
               <button type="button" class="primary-btn">Письмо директору</button>
             </div>
             <div class="writing_img">
-              <img src="@img/card-with-red-envelope 1.png">
+              <img src="@img/card-with-red-envelope.png">
             </div>
           </div>
         </section>
-        <section class="about_vakancies vakancies hidePerson2">
+        <section
+            class="about_vakancies vakancies hidePerson2"
+            v-if="vacancies.length"
+        >
           <h1 class="vakancies_title">ВАКАНСИИ</h1>
           <div class="vakancies_block">
-            <ul class="vakancies_list"></ul>
+            <ul class="vakancies_list">
+              <li
+                  v-for="vacancy in vacancies"
+                  :key="vacancy.id"
+              >
+                <div class="vakancies-item" :class="{'__active' : active}">
+                  <div class="vakancies-item_text">
+                    <h1>{{ vacancy.title }}</h1>
+                    <span>
+              {{ vacancy.min }} - {{ vacancy.max }} ₽
+            </span>
+                  </div>
+                  <div class="vakancies-item_arrow">
+                    <button class="splide_my-btn-next vakancies_arrow" @click="active=!active"></button>
+                  </div>
+                </div>
+
+                <div class="vakancies-item_text_show" :class="{'__active' : active}">
+                  {{ vacancy.description }}
+                  <br>
+                  <br>
+                  <b>Требования:</b><br>
+                  <p v-for="requirement in vacancy.requirements.split('||')">
+                    - {{ requirement }}
+                  </p>
+                  <br>
+                  <b>Условия:</b><br>
+                  <p v-for="condition in vacancy.conditions.split('||')">
+                    - {{ condition }}
+                  </p>
+                  <br>
+                  <br>
+                  <b>Контакты для связи:</b><br>
+                  Телефон: <span><a href="tel:+78612054986">+7 (861) 205-49-86</a></span><br>
+                  E-mail: <span><a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a></span>
+                </div>
+              </li>
+            </ul>
           </div>
         </section>
       </section>
@@ -188,5 +368,8 @@ export default {
 </template>
 
 <style scoped>
-
+.__active {
+  padding: 1rem 24px;
+  max-height: 580px;
+}
 </style>
