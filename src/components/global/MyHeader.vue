@@ -21,14 +21,14 @@ export default {
       <div class="header_contact" data-da="menu_body,4,992" >
         <div class="phone_1 phone">
           <p class="phone_text">Ростовское шоссе, 7</p>
-          <a href="tel:+786120054986" class="phone_number">
+          <a href="tel:+79180259393" class="phone_number">
             <img src="@img/icons/phone.svg">
             <span>+7 (861) 205-49-86</span>
           </a>
         </div>
         <div class="phone_2 phone">
           <p class="phone_text">Ростовское шоссе, 17</p>
-          <a href="tel:+786120054986" class="phone_number">
+          <a href="tel:+79180259393" class="phone_number">
             <img src="@img/icons/phone.svg">
             <span>+7 (861) 205-49-86</span>
           </a>

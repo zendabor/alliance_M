@@ -45,14 +45,14 @@ export default {
         <div class="footer-contact">
           <div class="footer-phone_1 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 7</p>
-            <a href="tel:+786120054986" class="footer-phone_number">
+            <a href="tel:+79180259393" class="footer-phone_number">
               <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>
           </div>
           <div class="footer-phone_2 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 17</p>
-            <a href="tel:+786120054986" class="footer-phone_number">
+            <a href="tel:+79180259393" class="footer-phone_number">
               <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>

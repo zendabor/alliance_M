@@ -131,7 +131,7 @@ export default {
           </li>
         </ul>
         <footer class="car-info_footer">
-          <a href="tel:+786120054986" class="car-info_tel">
+          <a href="tel:+79180259393" class="car-info_tel">
             <img src="@img/icons/contact.svg" alt="Contact">
           </a>
           <a href="/" class="btn-car-link">
