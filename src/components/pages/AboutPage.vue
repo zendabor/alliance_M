@@ -302,7 +302,7 @@ export default {
                   <br>
                   <br>
                   <b>Контакты для связи:</b><br>
-                  Телефон: <span><a href="tel:+78612054986">+7 (861) 205-49-86</a></span><br>
+                  Телефон: <span><a href="tel:+79180259393">+7 (918) 259-93-93</a></span><br>
                   E-mail: <span><a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a></span>
                 </div>
               </li>
