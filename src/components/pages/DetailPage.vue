@@ -49,6 +49,7 @@ export default {
       perPage: window.innerWidth >= 1023 ? 3 : window.innerWidth >= 767 ? 2 : window.innerWidth >= 574 ? 1 : 1,
       modalOn: false,
       currentPicture: null,
+      appPhone: '9182599393',
     }
   },
 
@@ -61,6 +62,15 @@ export default {
         this.car = car;
       } catch (e) {
         console.log(e)
+      }
+    },
+    async getAppNumber() {
+      try {
+        const response = await axios.get(`${API_URL}/api/number/app`);
+        const { data: { number } } = response;
+        this.appPhone = number;
+      } catch (e) {
+        console.log(e);
       }
     },
     getAutoName() {
@@ -103,12 +113,14 @@ export default {
     },
     getPictureSrc(value) {
       this.currentPicture = value;
-    }
-
-
+    },
+    getTel() {
+      return `tel:+7${this.appPhone}`;
+    },
   },
   mounted() {
     this.getCar();
+    this.getAppNumber();
   }
 }
 </script>
@@ -134,8 +146,8 @@ export default {
               <a href="#submit-application" class="btn-link popup-link full575">
                 <button type="button" class="btn zayavka-btn full575 submit-zayavka-btn">Заявка на кредит</button>
               </a>
-              <a href="tel:+79180259393" class="btn-link white-link full575">
-                <button type="button" class="btn red-text number-btn full575">+7 (918) 259-93-93</button>
+              <a :href="getTel()" class="btn-link white-link full575">
+                <button type="button" class="btn red-text number-btn full575">{{ appPhone }}</button>
               </a>
             </div>
           </div>

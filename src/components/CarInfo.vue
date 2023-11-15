@@ -52,6 +52,9 @@ export default {
       url: '',
       vehicle_mileage: 0,
       year: 0,
+    },
+    app: {
+      phone: ''
     }
   },
   methods: {
@@ -82,6 +85,9 @@ export default {
       const volume = this.car.configuration.engine.engine_volume;
 
       return `${(volume / 1000).toFixed(1)} л (${power})`;
+    },
+    getTel() {
+      return `tel:+7${this.app.phone}`;
     },
   }
 }
@@ -131,7 +137,7 @@ export default {
           </li>
         </ul>
         <footer class="car-info_footer">
-          <a href="tel:+79180259393" class="car-info_tel">
+          <a :href="getTel()" class="car-info_tel">
             <img src="@img/icons/contact.svg" alt="Contact">
           </a>
           <a href="/" class="btn-car-link">
