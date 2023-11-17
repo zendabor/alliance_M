@@ -117,6 +117,16 @@ export default {
     getTel() {
       return `tel:+7${this.appPhone}`;
     },
+    showMessageModal() {
+      // TODO показать модалку
+      this.modalMessage = true;
+      // TODO оправить письмо
+      // TODO письмо отправлено
+      // TODO закрыть модалку
+      setTimeout(() => {
+        this.modalMessage = false;
+      }, 3000)
+    }
   },
   mounted() {
     this.getCar();
