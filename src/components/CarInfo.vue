@@ -54,7 +54,7 @@ export default {
       year: 0,
     },
     app: {
-      phone: ''
+      phone: '9182599393'
     }
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
       return `${(volume / 1000).toFixed(1)} л (${power})`;
     },
     getTel() {
-      return `tel:+7${this.app.phone}`;
+      return `tel:+7${this.app?.phone}` ?? 99;
     },
     showModal() {
       // TODO показать модалку
@@ -98,8 +98,8 @@ export default {
       setTimeout(() => {
         this.modal = false;
       }, 3000)
-    }
-  }
+    },
+  },
 }
 </script>
 

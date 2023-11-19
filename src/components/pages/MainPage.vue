@@ -20,7 +20,7 @@ export default {
       },
       key: 0,
       app: {
-        phone: ''
+        phone: '9182599393'
       },
     }
   },
@@ -79,7 +79,6 @@ export default {
         const response = await axios.get(`${API_URL}/api/number/app`);
         const { data: { number } } = response;
         this.app.phone = number;
-        console.log(this.app.number)
       } catch (e) {
         console.log(e);
       }
