@@ -245,13 +245,7 @@ export default {
   display: flex;
 }
 
-.car_list {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
-}
+
 
 .car_info {
   border-radius: 20px;

@@ -7,6 +7,9 @@
   @media (max-width: 992px){
     margin: 40px 0;
   }
+  @media (max-width: 640px){
+    margin: 15px 0;
+  }
   // .menu__list
   &_list {
     display: flex;

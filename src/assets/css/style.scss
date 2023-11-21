@@ -5,6 +5,20 @@
 $primary_clr: #B40D16;
 $white: #fff;
 
+
+.car_list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  @media screen and (max-width:900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (max-width:640px) {
+    grid-template-columns: 1fr;
+  }
+}
 // ==================================================================//
 body {
   overflow-x: hidden;
@@ -62,6 +76,9 @@ body {
       justify-content: start;
       align-items: start;
       margin: 2rem 0px;
+    }
+    @media (max-width:840px){
+      display: none;
     }
   }
 }
@@ -748,7 +765,7 @@ body {
 
 .car {
 
-  // .car_list
+  &_list{
   @media (max-width: 1335px) {
     width: 100%;
   }
@@ -771,7 +788,7 @@ body {
       grid-template-columns: 1fr;
     }
   }
-
+  }
   // .car_info
 
   &_info {
