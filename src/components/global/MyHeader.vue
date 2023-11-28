@@ -1,6 +1,37 @@
 <script>
+import axios from "axios";
+import {API_URL} from "../../main";
 
 export default {
+  data() {
+    return {
+      offices: [
+        {
+          id: 0,
+          address: '',
+          tel: '',
+          email: '',
+        },
+      ],
+    }
+  },
+  methods: {
+    async getOffices() {
+      try {
+        const response = await axios.get(`${API_URL}/api/offices`)
+        const { data: { data: offices } } = response;
+        this.offices = offices;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    prepareTel(tel) {
+      return tel.replace(/7(\d{3})(\d{3})(\d{2})(\d{2})/, '7 ($1) $2 $3-$4');
+    }
+  },
+  mounted() {
+    this.getOffices();
+  }
 }
 </script>
 
@@ -19,18 +50,15 @@ export default {
         <Navbar :className="'menu'"/>
       </div>
       <div class="header_contact" data-da="menu_body,4,992" >
-        <div class="phone_1 phone">
-          <p class="phone_text">Ростовское шоссе, 7</p>
-          <a href="tel:+79180259393" class="phone_number">
+        <div
+            v-for="office in offices"
+            :key="office.id"
+            class="phone"
+        >
+          <p class="phone_text">{{ office.address }}</p>
+          <a :href="'tel:+' + 79180259393" class="phone_number">
             <img src="@img/icons/phone.svg">
-            <span>+7 (861) 205-49-86</span>
-          </a>
-        </div>
-        <div class="phone_2 phone">
-          <p class="phone_text">Ростовское шоссе, 17</p>
-          <a href="tel:+79180259393" class="phone_number">
-            <img src="@img/icons/phone.svg">
-            <span>+7 (861) 205-49-86</span>
+            <span>{{ prepareTel(office.tel) }}</span>
           </a>
         </div>
       </div>
