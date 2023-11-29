@@ -14,6 +14,9 @@ export default {
         last: 0,
       },
       key: 0,
+      app: {
+        phone: '9182599393'
+      }
     }
   },
   components: {
@@ -175,10 +178,20 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    }
+    },
+    async getAppNumber() {
+      try {
+        const response = await axios.get(`${API_URL}/api/number/app`);
+        const { data: { number } } = response;
+        this.app.phone = number;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   mounted() {
     this.getCarList();
+    this.getAppNumber();
   }
 }
 </script>
@@ -244,7 +257,7 @@ export default {
         <div class="cars_container">
           <div class="cars_buy car homeCars">
             <ul class="car_list" :key="key">
-              <CarInfo v-for="car in cars" :key="car.id" :car="car"/>
+              <CarInfo v-for="car in cars" :key="car.id" :car="car" :app="app"/>
             </ul>
           </div>
 

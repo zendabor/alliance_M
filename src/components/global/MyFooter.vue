@@ -14,7 +14,12 @@ export default {
     <div class="footer_container">
       <div class="flex map">
         <div class="footer_map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2817.8275633262365!2d38.98310637556051!3d45.06900895972072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40f04596973e77e7%3A0x1d9da4a217e535b8!2z0YPQuy4g0KDQvtGB0YLQvtCy0YHQutC-0LUg0YguLCA3LCDQmtGA0LDRgdC90L7QtNCw0YAsINCa0YDQsNGB0L3QvtC00LDRgNGB0LrQuNC5INC60YDQsNC5LCDQoNC-0YHRgdC40Y8sIDM1MDA1MQ!5e0!3m2!1sru!2s!4v1687773364655!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe
+              src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=1355874689"
+              width="560"
+              height="400"
+              frameborder="0"
+          ></iframe>
         </div>
         <div class="footer_contact">
           <h1 class="footer_title">Контакты</h1>
@@ -45,14 +50,14 @@ export default {
         <div class="footer-contact">
           <div class="footer-phone_1 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 7</p>
-            <a href="tel:+786120054986" class="footer-phone_number">
+            <a href="tel:+79180259393" class="footer-phone_number">
               <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>
           </div>
           <div class="footer-phone_2 footer-phone">
             <p class="footer-phone_text">Ростовское шоссе, 17</p>
-            <a href="tel:+786120054986" class="footer-phone_number">
+            <a href="tel:+79180259393" class="footer-phone_number">
               <img src="@img/icons/phone.svg">
               <span>+7 (861) 205-49-86</span>
             </a>

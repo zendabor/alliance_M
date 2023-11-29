@@ -435,7 +435,7 @@ if (vakancies_block) {
           — Возможно оформление по ТК РФ<br>
           <br>
           <b>Контакты для связи:</b><br>
-          Телефон: <span><a href="tel:+78612054986">+7 (861) 205-49-86</a></span><br>
+          Телефон: <span><a href="tel:+79180259393">+7 (918) 259-93-93</a></span><br>
           E-mail: <span><a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a></span>
 
           <!-- ========== DISCRIPTION END ====== -->
@@ -566,7 +566,7 @@ function templateCars(array = []) {
             </li>
           </ul>
           <footer class="car-info_footer">
-            <a href="tel:+786120054986" class="car-info_tel">
+            <a href="tel:+79180259393" class="car-info_tel">
               <img src="../img/icons/contact.svg" alt="Contact">
             </a>
             <a href="/" class="btn-car-link">
