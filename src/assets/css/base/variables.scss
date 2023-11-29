@@ -6,6 +6,7 @@ $maxWidthContainer: 1216;
 }
 
 .show767{
+  
   display: none;
   @media (max-width: 767.98px){
     display: block;
