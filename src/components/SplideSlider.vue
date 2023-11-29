@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       origin: location.origin,
+      modal: false,
     }
   },
   methods: {
@@ -19,6 +20,16 @@ export default {
       const splideIndex = new Splide("#homeSplide", options);
 
       splideIndex.mount();
+    },
+    showModal() {
+      // TODO показать модалку
+      this.modal = true;
+      // TODO оправить письмо
+      // TODO письмо отправлено
+      // TODO закрыть модалку
+      setTimeout(() => {
+        this.modal = false;
+      }, 3000)
     }
   },
   mounted() {
@@ -30,8 +41,14 @@ export default {
 <template>
   <section class="splide" id="homeSplide" aria-label="Splide">
     <div class="splide__arrows">
-      <button type="button" aria-controls="splide01-track" class="splide__arrow homeNextSlide splide__arrow--prev splide_my-btn-prev"></button>
-      <button class="splide__arrow splide__arrow--next homePrevSlide splide_my-btn-next "></button>
+      <button
+          type="button"
+          aria-controls="splide01-track"
+          class="splide__arrow homeNextSlide splide__arrow--prev splide_my-btn-prev"
+      ></button>
+      <button
+          class="splide__arrow splide__arrow--next homePrevSlide splide_my-btn-next"
+      ></button>
     </div>
     <div class="splide__track">
       <div class="splide__list">
@@ -50,9 +67,13 @@ export default {
                   <div class="slide_text">при<br class="hide575"/>оставлениИ заявки</div>
                 </div>
                 <div class="slide_btn">
-                  <a href="#submit-application" class="btn-slide-link popup-link">
-                    <button type="button" class="btn-slide">Оставить заявку</button>
-                  </a>
+<!--                  <a href="#submit-application" class="btn-slide-link popup-link">-->
+                  <button
+                      type="button"
+                      class="btn-slide"
+                      @click="showModal()"
+                  >Оставить заявку</button>
+<!--                  </a>-->
                 </div>
               </div>
             </div>
@@ -72,9 +93,13 @@ export default {
                   </div>
                 </div>
                 <div class="slide_btn">
-                  <a href="#submit-application" class="btn-slide-link popup-link">
-                    <button type="button" class="btn-slide">Оставить заявку</button>
-                  </a>
+<!--                  <a href="#submit-application" class="btn-slide-link popup-link">-->
+                  <button
+                      type="button"
+                      class="btn-slide"
+                      @click="showModal()"
+                  >Оставить заявку</button>
+<!--                  </a>-->
                 </div>
               </div>
             </div>
@@ -93,9 +118,13 @@ export default {
                 </div>
                 <div class="slide_btn">
                   <h3 class="slide-3_50">в 50%</h3>
-                  <a href="#submit-application" class="btn-slide-link popup-link">
-                    <button type="button" class="btn-slide">Оставить заявку</button>
-                  </a>
+<!--                  <a href="#submit-application" class="btn-slide-link popup-link">-->
+                  <button
+                      type="button"
+                      class="btn-slide"
+                      @click="showModal()"
+                  >Оставить заявку</button>
+<!--                  </a>-->
                 </div>
               </div>
             </div>

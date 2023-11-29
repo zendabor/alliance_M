@@ -52,6 +52,9 @@ export default {
       url: '',
       vehicle_mileage: 0,
       year: 0,
+    },
+    app: {
+      phone: '9182599393'
     }
   },
   methods: {
@@ -83,7 +86,20 @@ export default {
 
       return `${(volume / 1000).toFixed(1)} л (${power})`;
     },
-  }
+    getTel() {
+      return `tel:+7${this.app?.phone}` ?? 99;
+    },
+    showModal() {
+      // TODO показать модалку
+      this.modal = true;
+      // TODO оправить письмо
+      // TODO письмо отправлено
+      // TODO закрыть модалку
+      setTimeout(() => {
+        this.modal = false;
+      }, 3000)
+    },
+  },
 }
 </script>
 
@@ -131,12 +147,16 @@ export default {
           </li>
         </ul>
         <footer class="car-info_footer">
-          <a href="tel:+786120054986" class="car-info_tel">
+          <a :href="getTel()" class="car-info_tel">
             <img src="@img/icons/contact.svg" alt="Contact">
           </a>
-          <a href="/" class="btn-car-link">
-            <button type="button" class="btn-car">Оставить заявку</button>
-          </a>
+<!--          <a href="/" class="btn-car-link">-->
+          <button
+              type="button"
+              class="btn-car"
+              @click="showModal()"
+          >Оставить заявку</button>
+<!--          </a>-->
         </footer>
       </div>
     </div>

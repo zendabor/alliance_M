@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <nav :class="className">
-    <a href="tel:+78612054986" class="phone_menu">
+    <a href="tel:+79180259393" class="phone_menu">
       <img src="@img/icons/phone.svg">
     </a>
     <div class="menu_body">

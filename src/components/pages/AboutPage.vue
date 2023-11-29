@@ -198,13 +198,23 @@ export default {
               <li
                   v-for="person in persons.sale"
                   :key="person.id"
+                  class="person-card"
               >
-                <span v-if="person.attachment">
+                <span v-if="person.name">
+                  <div class="person-card_image">
+                    <img
+                        v-if="person.attachment"
+                        :src="person.attachment.url"
+                        :alt="person.attachment.origin_name"
+                        class="person-card_image"
+                    >
                   <img
-                      v-if="person.attachment"
-                      :src="person.attachment.url"
-                      :alt="person.attachment.origin_name"
+                      v-else
+                      src="@img/persons/default.jpg"
+                      alt="default"
+                      class="person-card_image"
                   >
+                  </div>
                   <h4>{{ person.name }} {{ person.surname }}</h4>
                   <p>{{ person.job }}</p>
                 </span>
@@ -236,13 +246,23 @@ export default {
               <li
                   v-for="person in persons.credit"
                   :key="person.id"
+                  class="person-card"
               >
-                <span v-if="person.attachment">
-                  <img
-                      v-if="person.attachment"
-                      :src="person.attachment.url"
-                      :alt="person.attachment.origin_name"
-                  >
+                <span v-if="person.name">
+                  <div class="person-card_image">
+                    <img
+                        v-if="person.attachment"
+                        :src="person.attachment.url"
+                        :alt="person.attachment.origin_name"
+                        class="person-card_image"
+                    >
+                    <img
+                        v-else
+                        src="@img/persons/default.jpg"
+                        alt="default"
+                        class="person-card_image"
+                    >
+                  </div>
                   <h4>{{ person.name }} {{ person.surname }}</h4>
                   <p>{{ person.job }}</p>
                 </span>
@@ -302,7 +322,7 @@ export default {
                   <br>
                   <br>
                   <b>Контакты для связи:</b><br>
-                  Телефон: <span><a href="tel:+78612054986">+7 (861) 205-49-86</a></span><br>
+                  Телефон: <span><a href="tel:+79180259393">+7 (918) 259-93-93</a></span><br>
                   E-mail: <span><a href="mailto:alliance.motors@bk.ru">alliance.motors@bk.ru</a></span>
                 </div>
               </li>
@@ -368,8 +388,17 @@ export default {
 </template>
 
 <style scoped>
-.__active {
-  padding: 1rem 24px;
-  max-height: 580px;
-}
+  .__active {
+    padding: 1rem 24px;
+    max-height: 580px;
+  }
+
+  .person-card {
+    min-height: 200px;
+    width: 250px;
+  }
+
+  .person-card_image {
+    height: 250px;
+  }
 </style>
