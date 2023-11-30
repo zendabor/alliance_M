@@ -22,6 +22,7 @@ export default {
       app: {
         phone: '9182599393'
       },
+      modal:false
     }
   },
   components: {
@@ -183,8 +184,8 @@ export default {
     isMorePages() {
       return this.page.current !== this.page.last;
     },
+
     showModal() {
-      сonsole.log('dsfsdfsdf')
       // TODO показать модалку
       this.modal = true;
       // TODO оправить письмо
@@ -222,7 +223,7 @@ export default {
         <div class="cars_container" :key="key">
           <div class="cars_buy car homeCars">
             <ul class="car_list" :key="key">
-              <CarInfo v-for="car in cars" :key="car.id" :car="car" :app="app" @click="showModal"/>
+              <CarInfo v-for="car in cars" :key="car.id" :car="car" :app="app" @show-modal="showModal"/>
             </ul>
           </div>
 
@@ -246,9 +247,9 @@ export default {
 
       <CreditForm />
 
-      <PopupWin />
+      <PopupWin  v-show="modal"/>
 
-      <PopupSubmit v-if="this.modal"/>
+      <PopupSubmit/>
 
       <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
         <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>

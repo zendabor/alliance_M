@@ -144,7 +144,7 @@ export default {
           <button
               type="button"
               class="btn-car"
-              @click="$emit('click')"
+              @click="$emit('show-modal')"
           >Оставить заявку</button>
 <!--          </a>-->
         </footer>
