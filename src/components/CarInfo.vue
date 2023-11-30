@@ -55,7 +55,7 @@ export default {
     },
     app: {
       phone: '9182599393'
-    }
+    },
   },
   methods: {
     getShortName() {
@@ -88,16 +88,6 @@ export default {
     },
     getTel() {
       return `tel:+7${this.app?.phone}` ?? 99;
-    },
-    showModal() {
-      // TODO показать модалку
-      this.modal = true;
-      // TODO оправить письмо
-      // TODO письмо отправлено
-      // TODO закрыть модалку
-      setTimeout(() => {
-        this.modal = false;
-      }, 3000)
     },
   },
 }
@@ -154,7 +144,7 @@ export default {
           <button
               type="button"
               class="btn-car"
-              @click="showModal()"
+              @click="$emit('click')"
           >Оставить заявку</button>
 <!--          </a>-->
         </footer>

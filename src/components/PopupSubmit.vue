@@ -1,7 +1,11 @@
 <script>
 export default {
-  name: "PopupSubmit"
+  name: "PopupSubmit",
+  // methods:{
+
+  // }
 }
+
 </script>
 
 <template>

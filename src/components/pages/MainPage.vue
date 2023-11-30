@@ -182,7 +182,18 @@ export default {
     },
     isMorePages() {
       return this.page.current !== this.page.last;
-    }
+    },
+    showModal() {
+      сonsole.log('dsfsdfsdf')
+      // TODO показать модалку
+      this.modal = true;
+      // TODO оправить письмо
+      // TODO письмо отправлено
+      // TODO закрыть модалку
+      setTimeout(() => {
+        this.modal = false;
+      }, 3000)
+    },
   },
   mounted() {
     this.getCarList();
@@ -211,7 +222,7 @@ export default {
         <div class="cars_container" :key="key">
           <div class="cars_buy car homeCars">
             <ul class="car_list" :key="key">
-              <CarInfo v-for="car in cars" :key="car.id" :car="car" :app="app"/>
+              <CarInfo v-for="car in cars" :key="car.id" :car="car" :app="app" @click="showModal"/>
             </ul>
           </div>
 
@@ -237,7 +248,7 @@ export default {
 
       <PopupWin />
 
-      <PopupSubmit />
+      <PopupSubmit v-if="this.modal"/>
 
       <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
         <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
@@ -274,6 +285,7 @@ export default {
   background: #fff;
   -webkit-transition: 0.3s ease background;
   transition: 0.3s ease background;
+  padding: 14px;
 }
 
 .car-info:hover {
@@ -291,7 +303,8 @@ export default {
 .car-info_container {
   max-width: 282px;
   margin: 0 auto;
-  padding: 12px;
+  min-height: 100%;
+  padding: 14px;
 }
 
 .car-info_img {
