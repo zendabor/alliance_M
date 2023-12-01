@@ -26,9 +26,9 @@ export default {
             <form class="submit_form" id="submit">
               <input required type="text" id="name" minlength="2" placeholder="Имя" class="input-1"/>
               <input required type="tel" id="tel" placeholder="+7 (___) ___-__-__" class="input-2"/>
-              <a href="#win" class="btn-link popup-link w-100">
+              <div href="#win" class="btn-link popup-link w-100">
                 <button type="submit" class="btn zayavka-btn w-100 submitRequiredForm">Отправить</button>
-              </a>
+              </div>
             </form>
             <p>Нажимая на кнопку “Отправить”, вы даете согласие на обработку перс. данных</p>
           </div>

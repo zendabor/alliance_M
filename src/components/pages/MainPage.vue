@@ -191,9 +191,9 @@ export default {
       // TODO оправить письмо
       // TODO письмо отправлено
       // TODO закрыть модалку
-      setTimeout(() => {
-        this.modal = false;
-      }, 3000)
+      // setTimeout(() => {
+      //   this.modal = false;
+      // }, 3000)
     },
   },
   mounted() {
@@ -247,9 +247,9 @@ export default {
 
       <CreditForm />
 
-      <PopupWin  v-show="modal"/>
+      <PopupWin v-show="false" />
 
-      <PopupSubmit/>
+      <PopupSubmit v-show="modal"/>
 
       <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
         <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>

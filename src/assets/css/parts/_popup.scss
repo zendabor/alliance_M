@@ -12,8 +12,8 @@ body.lock {
     width: 100%;
     z-index: 111;
     height: 100%;
-    opacity: 0;
-    visibility: hidden;
+    // opacity: 0;
+    // visibility: hidden;
     overflow-y: auto;
     overflow-x: hidden;
     transition: all .3s ease;
@@ -21,12 +21,12 @@ body.lock {
 
 .popup.open .popup__content {
     opacity: 1;
-    transform: translate(0px, 0%);
+    // transform: translate(0px, 0%);
 }
 
 .popup.open {
     opacity: 1;
-    visibility: visible;
+    // visibility: visible;
 }
 
 .popup__body {
@@ -46,10 +46,10 @@ body.lock {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
+    // opacity: 0;
     transition: all .3s ease;
     position: relative;
-    transform: translate(0px, -100%);
+    // transform: translate(0px, -100%);
 
     @media (max-width: 574.98px) {
         padding: 2rem 1rem;
