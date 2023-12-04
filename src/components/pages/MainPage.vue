@@ -187,7 +187,7 @@ export default {
 
     showModal() {
       // TODO показать модалку
-      this.modal = true;
+      this.modal = !this.modal;
       // TODO оправить письмо
       // TODO письмо отправлено
       // TODO закрыть модалку
@@ -247,9 +247,9 @@ export default {
 
       <CreditForm />
 
-      <PopupWin v-show="false" />
+      <!-- <PopupWin v-show="false" /> -->
 
-      <PopupSubmit v-show="modal"/>
+      <PopupSubmit v-show="modal" @modal="showModal"/>
 
       <a href="#submit-application" class="btn-link full575 show992 popup-link" data-da="menu_body,5,992">
         <button type="submit" class="btn zayavka-btn full575">Оставить заявку</button>
